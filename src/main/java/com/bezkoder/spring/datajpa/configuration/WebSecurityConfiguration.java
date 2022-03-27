@@ -29,7 +29,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .userDetailsService(userDetailsService)
                     .passwordEncoder(bCryptPasswordEncoder);
     }
+    private static final String[] AUTH_WHITELIST = {
 
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**",
+            "swagger-ui/**"
+    };
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -41,7 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers(loginPage).permitAll()
-                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
