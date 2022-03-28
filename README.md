@@ -3,6 +3,8 @@
 
 ----
 
+Web Interface Page SwaggerUI
+http://localhost:8080/swagger-ui/index.html
 #### Spring Boot JPA MySQL - Building Rest CRUD API
 
 For more detail, please visit:

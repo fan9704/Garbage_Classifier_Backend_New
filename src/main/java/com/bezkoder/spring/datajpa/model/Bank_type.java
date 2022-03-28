@@ -20,4 +20,10 @@ public class Bank_type {
     private String bank_name;
     @Column(name= "bank_code")
     private int bank_code;
+
+    public Bank_type(String bank_name,int bank_code){
+        this.bank_name=bank_name;
+        this.bank_code=bank_code;
+    }
+
 }
