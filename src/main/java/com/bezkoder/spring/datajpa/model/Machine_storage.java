@@ -32,10 +32,11 @@ public class Machine_storage {
 
     @Column(name = "storage")
     private double storage;
-    public Machine_storage(Machine machine_id,Garbage_type garbage_type,Date time_stamp){
+    public Machine_storage(Machine machine_id,Garbage_type garbage_type,Date time_stamp,double storage){
            this.machine_id=machine_id;
            this.garbage_type=garbage_type;
            this.time_stamp=time_stamp;
+           this.storage=storage;
     }
 
 }
