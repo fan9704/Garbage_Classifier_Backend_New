@@ -48,7 +48,7 @@ public class Machine_storageController {
         }
     }
 
-    @PatchMapping("/machine/{id}")
+    @PatchMapping("/machine_storage/{id}")
     public ResponseEntity<Machine_storage> patchMachine_storage(@PathVariable("id") long id, @RequestBody Machine_storage machine_storage) {
         Optional<Machine_storage> machine_storageData = machine_storageRepository.findById(id);
 
