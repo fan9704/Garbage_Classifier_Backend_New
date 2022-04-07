@@ -21,12 +21,10 @@ public class Bank_acct {
     @JoinColumn(name = "bank_type_id")
     private  Bank_type bank_type;
 
-//    @Column(name = "bank_type")
-//    private int bank_type;
     @Column(name= "account_code")
-    private int account_code;
+    private String account_code;
 
-    public Bank_acct(Bank_type bank_type,int account_code){
+    public Bank_acct(Bank_type bank_type,String account_code){
         this.bank_type=bank_type;
         this.account_code=account_code;
     }
