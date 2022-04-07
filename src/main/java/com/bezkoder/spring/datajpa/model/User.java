@@ -1,6 +1,8 @@
 package com.bezkoder.spring.datajpa.model;
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;

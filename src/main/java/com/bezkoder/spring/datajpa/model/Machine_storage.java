@@ -1,7 +1,9 @@
 package com.bezkoder.spring.datajpa.model;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -26,13 +28,13 @@ public class Machine_storage {
     @JoinColumn(name = "garbage_type")
     private  Garbage_type garbage_type;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp//Use Create time
     @Column(name= "time_stamp")
-    private Date time_stamp;
+    private Timestamp time_stamp;
 
     @Column(name = "storage")
     private double storage;
-    public Machine_storage(Machine machine_id,Garbage_type garbage_type,Date time_stamp,double storage){
+    public Machine_storage(Machine machine_id,Garbage_type garbage_type,Timestamp time_stamp,double storage){
            this.machine_id=machine_id;
            this.garbage_type=garbage_type;
            this.time_stamp=time_stamp;

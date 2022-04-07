@@ -1,8 +1,9 @@
 package com.bezkoder.spring.datajpa.model;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -25,14 +26,14 @@ public class Transfer_money_record {
     @Column(name = "amount")
     private double amount;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp//Use Create time
     @Column(name= "time_stamp")
-    private Date time_stamp;
+    private Timestamp time_stamp;
 
     @Column(name="bank_name")
     private String bank_name;
 
-    public Transfer_money_record(User receiver,double amount,Date time_stamp,String bank_name){
+    public Transfer_money_record(User receiver,double amount,Timestamp time_stamp,String bank_name){
         this.receiver=receiver;
         this.time_stamp=time_stamp;
         this.time_stamp=time_stamp;

@@ -5,8 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.security.Timestamp;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 @Builder
