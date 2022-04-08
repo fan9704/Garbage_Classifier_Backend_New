@@ -35,7 +35,7 @@ public class Transfer_money_record {
 
     public Transfer_money_record(User receiver,double amount,Timestamp time_stamp,String bank_name){
         this.receiver=receiver;
-        this.time_stamp=time_stamp;
+        this.amount=amount;
         this.time_stamp=time_stamp;
         this.bank_name=bank_name;
     }
