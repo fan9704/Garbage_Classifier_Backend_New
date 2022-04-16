@@ -1,6 +1,7 @@
 package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.Machine;
+import com.bezkoder.spring.datajpa.model.MachineDTO;
 import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
@@ -42,7 +43,7 @@ public class MachineController {
 
 
     @PostMapping("/machine")
-    public ResponseEntity<Machine> createMachine(@RequestBody Machine machine) {
+    public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             Machine _machine;
             _machine = machineRepository
@@ -53,24 +54,19 @@ public class MachineController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-//    @PostMapping("{user_id}/machine")
-//    public ResponseEntity<Machine> createMachine(@RequestBody Machine machine,@PathVariable("user_id") Long user_id) {
-//        try {
-//            System.out.println(user_id);
-//            System.out.println(machine.getId());
-//            Optional<User> userData = userRepository.findById(user_id);
-//            User user=userData.get();
-//            Machine _machine;
-////            _machine.setCurrent_user(userRepository.findById(user_id).get());
-//            _machine = machineRepository
-//                    .save(new Machine(machine.getLocation(),false,false,user));
-//
-//            return new ResponseEntity<>(_machine, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PatchMapping("/machine/user/{id}")//Patch Machine current user TODO:Should change Integer to int or Long
+    public ResponseEntity<Machine> patchMachineUser(@PathVariable("id") long id,  long user_id) {
+        Optional<Machine> machineData = machineRepository.findById(id);
+        Optional<User> userData = userRepository.findById(user_id);
+        if (machineData.isPresent()) {
+            Machine _machine = machineData.get();
+            User _user=userData.get();
+            _machine.setCurrent_user(_user);
+            return new ResponseEntity<>(machineRepository.save(_machine), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PatchMapping("/machine/{id}")
     public ResponseEntity<Machine> patchMachine(@PathVariable("id") long id, @RequestBody Machine machine) {
         Optional<Machine> machineData = machineRepository.findById(id);

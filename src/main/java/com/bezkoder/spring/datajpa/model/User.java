@@ -1,6 +1,6 @@
 package com.bezkoder.spring.datajpa.model;
 import javax.persistence.*;
-
+import  com.bezkoder.spring.datajpa.model.Wallet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Data
 @Builder
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
@@ -22,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Integer id;
+    private long id;
 
     @Column(name = "user_name",unique = true, nullable = false)//Add Unique Constrain and not nullable
     @Length(min = 5, message = "*Your user name must have at least 5 characters")
@@ -48,4 +48,15 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    public User(long id, String userName, String email, String password, String name, String lastName, Boolean active, Set<Role> roles) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+        this.active = active;
+        this.roles = roles;
+        new Wallet(0.0,"Create Account",this);
+    }
 }

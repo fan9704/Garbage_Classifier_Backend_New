@@ -20,7 +20,7 @@ public class Machine {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Nullable
     @Column(name = "location")
