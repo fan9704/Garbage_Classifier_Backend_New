@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bezkoder.spring.datajpa.model.Wallet;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
 import com.bezkoder.spring.datajpa.model.User;
+import com.bezkoder.spring.datajpa.model.UserDTO;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -63,13 +64,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody UserDTO userDTO) {
         try {
-           User _user = userService
-                    .saveUser(user);
+            String username= userDTO.getUserName();
+            String name= userDTO.getName();
+            String lastname= userDTO.getLastName();
+            String password= userDTO.getPassword();
+            String email= userDTO.getEmail();
+            Boolean active= userDTO.getActive();
+            User user=new User(username,email,password,name,lastname,active);
+            userService.saveUser(user);
            walletRepository.save(new Wallet(0.0,"Create Account",user));
-            System.out.println("Create Wallet Success");
-            return new ResponseEntity<>(_user, HttpStatus.CREATED);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -59,4 +59,12 @@ public class User {
         this.roles = roles;
         new Wallet(0.0,"Create Account",this);
     }
+    public User(String userName, String email, String password, String name, String lastName, Boolean active) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+        this.active = active;
+    }
 }

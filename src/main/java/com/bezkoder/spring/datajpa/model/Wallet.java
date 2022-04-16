@@ -28,7 +28,7 @@ public class Wallet {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @OneToOne
     @Nullable
     @JoinColumn(name = "user_id")
     private  User user_id;
@@ -36,6 +36,7 @@ public class Wallet {
 //    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp//Use Create time
     @Column(name= "time_stamp")
+    @Nullable
     private Timestamp time_stamp;
 
 
@@ -45,5 +46,9 @@ public class Wallet {
         this.user_id=user_id;
         this.time_stamp=time_stamp;
     }
-
+    public Wallet(double change_value,String description,User user_id){
+        this.change_value=change_value;
+        this.description=description;
+        this.user_id=user_id;
+    }
 }
