@@ -25,7 +25,7 @@ import com.bezkoder.spring.datajpa.model.UserDTO;
 import com.bezkoder.spring.datajpa.model.LoginDTO;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -96,7 +96,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> loginUser(@RequestBody LoginDTO loginDTO) {
         try {
-            String username= loginDTO.getUserName();
+            String username= loginDTO.getUsername();
             String password= loginDTO.getPassword();
             User userData = userRepository.findByUserName(username);
             String _password=userData.getPassword();

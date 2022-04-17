@@ -10,6 +10,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class LoginDTO {
-    private String userName;
+    private String username;
     private String password;
 }
