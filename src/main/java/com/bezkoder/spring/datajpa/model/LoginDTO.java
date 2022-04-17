@@ -9,13 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MachineDTO {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    private String location;
-    private boolean user_lock;
-    private boolean machine_lock;
-
+public class LoginDTO {
+    private String userName;
+    private String password;
 }

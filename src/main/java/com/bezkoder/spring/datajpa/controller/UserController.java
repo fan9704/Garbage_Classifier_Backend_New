@@ -22,6 +22,7 @@ import com.bezkoder.spring.datajpa.model.Wallet;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
 import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.model.UserDTO;
+import com.bezkoder.spring.datajpa.model.LoginDTO;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -63,6 +64,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/userinfo/{username}")
+    public ResponseEntity<User> getUserById(@PathVariable("username") String username) {
+        User userData = userRepository.findByUserName(username);
+
+        if (userData!=null) {
+            return new ResponseEntity<>(userData, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody UserDTO userDTO) {
         try {
@@ -81,6 +93,22 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody LoginDTO loginDTO) {
+        try {
+            String username= loginDTO.getUserName();
+            String password= loginDTO.getPassword();
+            User userData = userRepository.findByUserName(username);
+            String _password=userData.getPassword();
+            if (userService.loginUser(_password,password)) {
+                return new ResponseEntity<>(userData, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 //    @PutMapping("/user/{id}")
 //    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
 //        Optional<User> userData = userRepository.findById(id);
