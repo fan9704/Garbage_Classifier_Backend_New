@@ -3,6 +3,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -24,7 +25,7 @@ public class Transfer_money_record {
     private  User receiver;
 
     @Column(name = "amount")
-    private double amount;
+    private BigDecimal amount;
 
     @CreationTimestamp//Use Create time
     @Column(name= "time_stamp")
@@ -33,12 +34,16 @@ public class Transfer_money_record {
     @Column(name="bank_name")
     private String bank_name;
 
-    public Transfer_money_record(User receiver,double amount,Timestamp time_stamp,String bank_name){
+    public Transfer_money_record(User receiver, BigDecimal amount, Timestamp time_stamp, String bank_name){
         this.receiver=receiver;
         this.amount=amount;
         this.time_stamp=time_stamp;
         this.bank_name=bank_name;
     }
-
+    public Transfer_money_record(User receiver, BigDecimal amount, String bank_name) {
+        this.receiver = receiver;
+        this.amount = amount;
+        this.bank_name = bank_name;
+    }
 }
 

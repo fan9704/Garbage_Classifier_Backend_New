@@ -1,5 +1,6 @@
 package com.bezkoder.spring.datajpa.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,9 +85,9 @@ public class UserController {
             String password= userDTO.getPassword();
             String email= userDTO.getEmail();
             Boolean active= userDTO.getActive();
-            User user=new User(username,email,password,name,lastname,active);
+            User user=new User(username,email,password,name,lastname,active,null);
             userService.saveUser(user);
-           walletRepository.save(new Wallet(0.0,"Create Account",user));
+           walletRepository.save(new Wallet(new BigDecimal("0"),"Create Account",user));
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

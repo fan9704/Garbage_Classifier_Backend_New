@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -23,7 +24,7 @@ public class Wallet {
 
     @Nullable
     @Column(name = "change_value")
-    private double change_value;//"- transfer money {transfer account}" "+ recycle {recycle_type} add {total_amount}"
+    private BigDecimal change_value;//"- transfer money {transfer account}" "+ recycle {recycle_type} add {total_amount}"
 
     @Column(name = "description")
     private String description;
@@ -40,13 +41,13 @@ public class Wallet {
     private Timestamp time_stamp;
 
 
-    public Wallet(double change_value,String description,User user_id,Timestamp time_stamp){
+    public Wallet( BigDecimal change_value,String description,User user_id,Timestamp time_stamp){
         this.change_value=change_value;
         this.description=description;
         this.user_id=user_id;
         this.time_stamp=time_stamp;
     }
-    public Wallet(double change_value,String description,User user_id){
+    public Wallet( BigDecimal change_value,String description,User user_id){
         this.change_value=change_value;
         this.description=description;
         this.user_id=user_id;

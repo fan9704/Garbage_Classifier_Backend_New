@@ -1,12 +1,16 @@
 package com.bezkoder.spring.datajpa.model;
+
 import javax.persistence.*;
-import  com.bezkoder.spring.datajpa.model.Wallet;
+
+import com.bezkoder.spring.datajpa.model.Wallet;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Getter
@@ -24,7 +28,7 @@ public class User {
     @Column(name = "user_id")
     private long id;
 
-    @Column(name = "user_name",unique = true, nullable = false)//Add Unique Constrain and not nullable
+    @Column(name = "user_name", unique = true, nullable = false)//Add Unique Constrain and not nullable
     @Length(min = 5, message = "*Your user name must have at least 5 characters")
     @NotEmpty(message = "*Please provide a user name")
     private String userName;
@@ -47,8 +51,12 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @OneToOne
+    @JoinColumn(name = "bank_acct_id")
+    private Bank_acct bank_acct;
 
-    public User(long id, String userName, String email, String password, String name, String lastName, Boolean active, Set<Role> roles) {
+
+    public User(long id, String userName, String email, String password, String name, String lastName, Boolean active, Set<Role> roles, Bank_acct bank_acct) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -57,14 +65,17 @@ public class User {
         this.lastName = lastName;
         this.active = active;
         this.roles = roles;
-        new Wallet(0.0,"Create Account",this);
+        this.bank_acct = bank_acct;
+        new Wallet(new BigDecimal("0"), "Create Account", this);
     }
-    public User(String userName, String email, String password, String name, String lastName, Boolean active) {
+
+    public User(String userName, String email, String password, String name, String lastName, Boolean active, Bank_acct bank_acct) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.active = active;
+        this.bank_acct = bank_acct;
     }
 }

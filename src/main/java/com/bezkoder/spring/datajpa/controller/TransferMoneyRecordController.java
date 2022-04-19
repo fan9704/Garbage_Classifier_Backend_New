@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ public class TransferMoneyRecordController {
             if(transfer_money_record.getReceiver()!=null){
                 _transfer_money_record.setReceiver(transfer_money_record.getReceiver());
             }
-            if(transfer_money_record.getAmount()!=0 ){
+            if(transfer_money_record.getAmount().compareTo(BigDecimal.ZERO) != 0  ){
                 _transfer_money_record.setAmount(transfer_money_record.getAmount());
             }
             return new ResponseEntity<>(transfer_money_recordRepository.save(_transfer_money_record), HttpStatus.OK);
