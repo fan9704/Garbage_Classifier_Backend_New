@@ -1,7 +1,9 @@
 package com.bezkoder.spring.datajpa.controller;
-
-import com.bezkoder.spring.datajpa.model.Garbage_record;
+import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.GarbageRecordRepository;
+import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
+import com.bezkoder.spring.datajpa.repository.MachineRepository;
+import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.GarbageRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class GarbageRecordController {
@@ -19,6 +21,12 @@ public class GarbageRecordController {
     private GarbageRecordService garbage_recordService;
     @Autowired
     private GarbageRecordRepository garbage_recordRepository;
+    @Autowired
+    private GarbageTypeRepository garbageTypeRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private  MachineRepository machineRepository;
     @GetMapping("/garbage_records")
     public List<Garbage_record> allGarbage_records() {
 
@@ -38,10 +46,20 @@ public class GarbageRecordController {
 
 
     @PostMapping("/garbage_record")
-    public ResponseEntity<Garbage_record> createGarbage_record(@RequestBody Garbage_record garbage_record) {
+    public ResponseEntity<Garbage_record> createGarbage_record(@RequestBody Garbage_recordDTO garbage_recordDTO) {
         try {
+            System.out.println(garbage_recordDTO.getUser());
+            Optional<User> userData =userRepository.findById(garbage_recordDTO.getUser());
+            System.out.println("find user");
+            System.out.println(garbage_recordDTO.getMachine_id());
+            Optional<Machine> machineData =machineRepository.findById(garbage_recordDTO.getMachine_id());
+            System.out.println("find machine");
+            System.out.println(garbage_recordDTO.getGarbage_type());
+            Optional<Garbage_type> garbage_typeData =garbageTypeRepository.findById(garbage_recordDTO.getGarbage_type());
+            System.out.println("find type");
+
             Garbage_record _garbage_record = garbage_recordRepository
-                    .save(new Garbage_record(garbage_record.getGarbage_type(), garbage_record.getWeight(),garbage_record.getUser(),garbage_record.getTime_stamp(),garbage_record.getMachine_id()));
+                    .save(new Garbage_record(garbage_typeData.get(), garbage_recordDTO.getWeight(),userData.get(),machineData.get()));
             return new ResponseEntity<>(_garbage_record, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

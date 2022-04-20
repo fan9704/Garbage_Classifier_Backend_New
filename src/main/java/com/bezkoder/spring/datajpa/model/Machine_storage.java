@@ -18,7 +18,7 @@ public class Machine_storage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "machine_id")
@@ -34,10 +34,9 @@ public class Machine_storage {
 
     @Column(name = "storage")
     private double storage;
-    public Machine_storage(Machine machine_id,Garbage_type garbage_type,Timestamp time_stamp,double storage){
+    public Machine_storage(Machine machine_id,Garbage_type garbage_type,double storage){
            this.machine_id=machine_id;
            this.garbage_type=garbage_type;
-           this.time_stamp=time_stamp;
            this.storage=storage;
     }
 

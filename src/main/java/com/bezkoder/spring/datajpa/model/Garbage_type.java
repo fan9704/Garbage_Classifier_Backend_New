@@ -16,7 +16,7 @@ public class Garbage_type {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "type_name")
     private String type_name;

@@ -42,7 +42,7 @@ public class MachineController {
     }
 
 
-    @PostMapping("/machine")
+    @PostMapping("/machine")//TODO: Auto Create Machine storage
     public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             Machine _machine;

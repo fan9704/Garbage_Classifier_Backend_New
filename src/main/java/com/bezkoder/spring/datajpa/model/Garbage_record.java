@@ -17,7 +17,7 @@ public class Garbage_record {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "garbage_type")
@@ -38,11 +38,11 @@ public class Garbage_record {
     @JoinColumn(name = "machine_id")
     private  Machine machine_id;
 
-    public Garbage_record(Garbage_type garbage_type, double weight, User user, Timestamp time_stamp, Machine machine_id) {
+    public Garbage_record(Garbage_type garbage_type, double weight, User user, Machine machine_id) {
         this.garbage_type = garbage_type;
         this.weight = weight;
         this.user = user;
-        this.time_stamp = time_stamp;
+//        this.time_stamp = time_stamp;
         this.machine_id = machine_id;
     }
 }

@@ -14,10 +14,10 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 public class Machine_storageDTO {
-    private int id;
+//    private long id;
 //    private  Machine machine_id;
-    private  int machine_id;
+    private  long machine_id;
 //    private  Garbage_type garbage_type;
-    private  int garbage_type;
+    private  long garbage_type;
     private double storage;
 }
