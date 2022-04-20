@@ -10,9 +10,9 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class MachineDTO {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+//    @Id
+//    @Column(name = "id", nullable = false)
+//    private Long id;
 
     private String location;
     private boolean user_lock;

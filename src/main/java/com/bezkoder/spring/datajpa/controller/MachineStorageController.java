@@ -1,6 +1,11 @@
 package com.bezkoder.spring.datajpa.controller;
 
+import com.bezkoder.spring.datajpa.model.Garbage_type;
+import com.bezkoder.spring.datajpa.model.Machine;
 import com.bezkoder.spring.datajpa.model.Machine_storage;
+import com.bezkoder.spring.datajpa.model.Machine_storageDTO;
+import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
+import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;
 import com.bezkoder.spring.datajpa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +24,10 @@ public class MachineStorageController {
     private MachineStorageService machine_storageService;
     @Autowired
     private MachineStorageRepository machine_storageRepository;
+    @Autowired
+    private MachineRepository machineRepository;
+    @Autowired
+    private GarbageTypeRepository garbageTypeRepository;
     @GetMapping("/machines_storage")
     public List<Machine_storage> allMachine_storages() {
 
@@ -38,10 +47,12 @@ public class MachineStorageController {
 
 
     @PostMapping("/machine_storage")
-    public ResponseEntity<Machine_storage> createMachine_storage(@RequestBody Machine_storage machine_storage) {
+    public ResponseEntity<Machine_storage> createMachine_storage(@RequestBody Machine_storageDTO machine_storageDTO) {
         try {
+            Machine machine=machineRepository.findById(machine_storageDTO.getMachine_id()).get();
+            Garbage_type garbage_type=garbageTypeRepository.findById(machine_storageDTO.getGarbage_type()).get();
             Machine_storage _machine_storage = machine_storageRepository
-                    .save(new Machine_storage(machine_storage.getMachine_id(),machine_storage.getGarbage_type(),machine_storage.getTime_stamp(),machine_storage.getStorage()));
+                    .save(new Machine_storage(machine,garbage_type,machine_storageDTO.getStorage()));
             return new ResponseEntity<>(_machine_storage, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

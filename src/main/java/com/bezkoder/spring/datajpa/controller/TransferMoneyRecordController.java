@@ -1,7 +1,10 @@
 package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
+import com.bezkoder.spring.datajpa.model.Transfer_money_recordDTO;
+import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.repository.TransferMoneyRecordRepository;
+import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.TransferMoneyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,8 @@ public class TransferMoneyRecordController {
     private TransferMoneyRecordService transfer_money_recordService;
     @Autowired
     private TransferMoneyRecordRepository transfer_money_recordRepository;
+    @Autowired
+    private UserRepository userRepository;
     @GetMapping("/transfer_money_records")
     public List<Transfer_money_record> allTransfer_money_records() {
 
@@ -39,10 +44,11 @@ public class TransferMoneyRecordController {
 
 
     @PostMapping("/transfer_money_record")
-    public ResponseEntity<Transfer_money_record> createTransfer_money_record(@RequestBody Transfer_money_record transfer_money_record) {
+    public ResponseEntity<Transfer_money_record> createTransfer_money_record(@RequestBody Transfer_money_recordDTO transfer_money_recordDTO) {
         try {
+            User user =userRepository.findById(transfer_money_recordDTO.getReceiver()).get();
             Transfer_money_record _garbage_record = transfer_money_recordRepository
-                    .save(new Transfer_money_record(transfer_money_record.getReceiver(),transfer_money_record.getAmount(),transfer_money_record.getTime_stamp(),transfer_money_record.getBank_name()));
+                    .save(new Transfer_money_record(user,transfer_money_recordDTO.getAmount(),transfer_money_recordDTO.getBank_name()));
             return new ResponseEntity<>(_garbage_record, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
