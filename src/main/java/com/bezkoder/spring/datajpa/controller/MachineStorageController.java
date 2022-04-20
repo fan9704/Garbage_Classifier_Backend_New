@@ -60,18 +60,18 @@ public class MachineStorageController {
     }
 
     @PatchMapping("/machine_storage/{id}")
-    public ResponseEntity<Machine_storage> patchMachine_storage(@PathVariable("id") long id, @RequestBody Machine_storage machine_storage) {
+    public ResponseEntity<Machine_storage> patchMachine_storage(@PathVariable("id") long id, @RequestBody Machine_storageDTO machine_storageDTO) {
         Optional<Machine_storage> machine_storageData = machine_storageRepository.findById(id);
-
+        Machine machine=machineRepository.findById(machine_storageDTO.getMachine_id()).get();
+        Garbage_type garbage_type=garbageTypeRepository.findById(machine_storageDTO.getGarbage_type()).get();
         if (machine_storageData.isPresent()) {
-            System.out.println(machine_storage.getMachine_id());
-            System.out.println(machine_storage.getTime_stamp());//Check Variable
+            System.out.println(machine_storageDTO.getMachine_id());
             Machine_storage _machine_storage = machine_storageData.get();
-            if(machine_storage.getMachine_id()!=null ){
-                _machine_storage.setMachine_id(machine_storage.getMachine_id());
+            if(machine_storageDTO.getMachine_id()!=machine_storageData.get().getMachine_id().getId() ){
+                _machine_storage.setMachine_id(machine);
             }
-            if(machine_storage.getTime_stamp()!=null ){
-                _machine_storage.setTime_stamp(machine_storage.getTime_stamp());
+            if(machine_storageDTO.getGarbage_type()!=machine_storageData.get().getGarbage_type().getId()){
+                _machine_storage.setGarbage_type(garbage_type);
             }
             return new ResponseEntity<>(machine_storageRepository.save(_machine_storage), HttpStatus.OK);
         } else {
@@ -80,15 +80,15 @@ public class MachineStorageController {
     }
 
     @PutMapping("/machine_storage/{id}")
-    public ResponseEntity<Machine_storage> updateMachine_storage(@PathVariable("id") long id, @RequestBody Machine_storage machine_storage) {
+    public ResponseEntity<Machine_storage> updateMachine_storage(@PathVariable("id") long id, @RequestBody Machine_storageDTO machine_storageDTO) {
         Optional<Machine_storage> machine_storageData = machine_storageRepository.findById(id);
-
+        Machine machine=machineRepository.findById(machine_storageDTO.getMachine_id()).get();
+        Garbage_type garbage_type=garbageTypeRepository.findById(machine_storageDTO.getGarbage_type()).get();
         if (machine_storageData.isPresent()) {
-            System.out.println(machine_storage.getMachine_id());
-            System.out.println(machine_storage.getTime_stamp());//Check Variable
+            System.out.println(machine_storageDTO.getMachine_id());
             Machine_storage _machine_storage = machine_storageData.get();
-            _machine_storage.setMachine_id(machine_storage.getMachine_id());
-            _machine_storage.setTime_stamp(machine_storage.getTime_stamp());
+            _machine_storage.setMachine_id(machine);
+            _machine_storage.setGarbage_type(garbage_type);
             return new ResponseEntity<>(machine_storageRepository.save(_machine_storage), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

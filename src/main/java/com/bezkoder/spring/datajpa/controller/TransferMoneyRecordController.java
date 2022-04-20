@@ -56,20 +56,22 @@ public class TransferMoneyRecordController {
     }
 
     @PatchMapping("/transfer_money_record/{id}")
-    public ResponseEntity<Transfer_money_record> patchTransfer_money_record(@PathVariable("id") long id, @RequestBody Transfer_money_record transfer_money_record) {
+    public ResponseEntity<Transfer_money_record> patchTransfer_money_record(@PathVariable("id") long id, @RequestBody Transfer_money_recordDTO transfer_money_recordDTO) {
         Optional<Transfer_money_record> transfer_money_recordData = transfer_money_recordRepository.findById(id);
-
+        User user =userRepository.findById(transfer_money_recordDTO.getReceiver()).get();
         if (transfer_money_recordData.isPresent()) {
-            System.out.println(transfer_money_record.getReceiver());//Check Variable
-            System.out.println(transfer_money_record.getAmount());
-            System.out.println(transfer_money_record.getTime_stamp());
-            System.out.println(transfer_money_record.getBank_name());
+            System.out.println(transfer_money_recordDTO.getReceiver());//Check Variable
+            System.out.println(transfer_money_recordDTO.getAmount());
+            System.out.println(transfer_money_recordDTO.getBank_name());
             Transfer_money_record _transfer_money_record = transfer_money_recordData.get();
-            if(transfer_money_record.getReceiver()!=null){
-                _transfer_money_record.setReceiver(transfer_money_record.getReceiver());
+            if(transfer_money_recordDTO.getReceiver()!=transfer_money_recordData.get().getReceiver().getId()){
+                _transfer_money_record.setReceiver(user);
             }
-            if(transfer_money_record.getAmount().compareTo(BigDecimal.ZERO) != 0  ){
-                _transfer_money_record.setAmount(transfer_money_record.getAmount());
+            if(transfer_money_recordDTO.getAmount().compareTo(BigDecimal.ZERO) != 0  ){
+                _transfer_money_record.setAmount(transfer_money_recordDTO.getAmount());
+            }
+            if(transfer_money_recordDTO.getBank_name()!=""){
+                _transfer_money_record.setBank_name(transfer_money_recordDTO.getBank_name());
             }
             return new ResponseEntity<>(transfer_money_recordRepository.save(_transfer_money_record), HttpStatus.OK);
         } else {
@@ -78,19 +80,17 @@ public class TransferMoneyRecordController {
     }
 
     @PutMapping("/transfer_money_record/{id}")
-    public ResponseEntity<Transfer_money_record> updateTransfer_money_record(@PathVariable("id") long id, @RequestBody Transfer_money_record transfer_money_record) {
+    public ResponseEntity<Transfer_money_record> updateTransfer_money_record(@PathVariable("id") long id, @RequestBody Transfer_money_recordDTO transfer_money_recordDTO) {
         Optional<Transfer_money_record> transfer_money_recordData = transfer_money_recordRepository.findById(id);
-
+        User user =userRepository.findById(transfer_money_recordDTO.getReceiver()).get();
         if (transfer_money_recordData.isPresent()) {
-            System.out.println(transfer_money_record.getReceiver());//Check Variable
-            System.out.println(transfer_money_record.getAmount());
-            System.out.println(transfer_money_record.getTime_stamp());
-            System.out.println(transfer_money_record.getBank_name());
+            System.out.println(transfer_money_recordDTO.getReceiver());//Check Variable
+            System.out.println(transfer_money_recordDTO.getAmount());
+            System.out.println(transfer_money_recordDTO.getBank_name());
             Transfer_money_record _transfer_money_record = transfer_money_recordData.get();
-            _transfer_money_record.setReceiver(transfer_money_record.getReceiver());
-            _transfer_money_record.setAmount(transfer_money_record.getAmount());
-            _transfer_money_record.setTime_stamp(transfer_money_record.getTime_stamp());
-            _transfer_money_record.setBank_name(transfer_money_record.getBank_name());
+            _transfer_money_record.setReceiver(user);
+            _transfer_money_record.setAmount(transfer_money_recordDTO.getAmount());
+            _transfer_money_record.setBank_name(transfer_money_recordDTO.getBank_name());
 
             return new ResponseEntity<>(transfer_money_recordRepository.save(_transfer_money_record), HttpStatus.OK);
         } else {
