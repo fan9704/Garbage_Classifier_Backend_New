@@ -11,6 +11,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class CashDTO {
-    private int userId;
+    private long userId;
     private long cash;
 }

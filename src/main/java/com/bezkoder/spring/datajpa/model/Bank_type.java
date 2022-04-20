@@ -15,7 +15,7 @@ public class Bank_type {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private long id;
     @Column(name = "bank_name")
     private String bank_name;
     @Column(name= "bank_code")

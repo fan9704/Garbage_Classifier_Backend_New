@@ -11,7 +11,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class Back_acctDTO {
-    private int id;
+    private long id;
 //    private  Bank_type bank_type;
     private  int bank_type;
     private String account_code;
