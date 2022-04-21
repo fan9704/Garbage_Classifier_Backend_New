@@ -1,5 +1,7 @@
 package com.bezkoder.spring.datajpa.service;
 
+import com.bezkoder.spring.datajpa.model.Garbage_type;
+import com.bezkoder.spring.datajpa.model.Machine;
 import com.bezkoder.spring.datajpa.model.Machine_storage;
 import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,15 @@ public class MachineStorageService {
     public void deleteById(Long userId) {
 
         machineStorageRepository.deleteById(userId);
+    }
+//    public Machine_storage findByMachine(Machine machine){
+//        return machineStorageRepository.findByMachine(machine);
+//    }
+//    public Machine_storage findByGarbageType(Garbage_type garbage_type){
+//        return  machineStorageRepository.findByGarbageType(garbage_type);
+//    }
+    public  Machine_storage findOneByMachineAndGarbageType(Machine machine,Garbage_type garbage_type){
+         return machineStorageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
+
     }
 }

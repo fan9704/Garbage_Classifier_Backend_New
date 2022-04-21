@@ -21,12 +21,12 @@ public class Machine_storage {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "machine_id")
-    private  Machine machine_id;
+    @JoinColumn(name = "machine")
+    private  Machine machine;
 
     @ManyToOne
-    @JoinColumn(name = "garbage_type")
-    private  Garbage_type garbage_type;
+    @JoinColumn(name = "garbageType")
+    private  Garbage_type garbageType;
 
     @CreationTimestamp//Use Create time
     @Column(name= "time_stamp")
@@ -34,9 +34,9 @@ public class Machine_storage {
 
     @Column(name = "storage")
     private double storage;
-    public Machine_storage(Machine machine_id,Garbage_type garbage_type,double storage){
-           this.machine_id=machine_id;
-           this.garbage_type=garbage_type;
+    public Machine_storage(Machine machine,Garbage_type garbage_type,double storage){
+           this.machine=machine;
+           this.garbageType=garbage_type;
            this.storage=storage;
     }
 

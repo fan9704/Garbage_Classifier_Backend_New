@@ -54,8 +54,8 @@ public class MachineController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PatchMapping("/machine/user/{id}")//Patch Machine current user TODO:Should change Integer to int or Long
-    public ResponseEntity<Machine> patchMachineUser(@PathVariable("id") long id,  long user_id) {
+    @PatchMapping("/machine/user/{id}")//Patch Machine current user TODO:user_id should use DTO
+    public ResponseEntity<Machine> patchMachineUser(@PathVariable("id") long id, long user_id) {
         Optional<Machine> machineData = machineRepository.findById(id);
         Optional<User> userData = userRepository.findById(user_id);
         if (machineData.isPresent()) {

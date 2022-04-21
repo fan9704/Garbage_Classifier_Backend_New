@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class MachineStorageController {
-
+    //TODO: Find by machine and garbage id
     @Autowired
     private MachineStorageService machine_storageService;
     @Autowired
@@ -58,7 +58,35 @@ public class MachineStorageController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PatchMapping("/machine_storage")
+    public ResponseEntity<Machine_storage> patchMachine_storageWithJSON(@RequestBody Machine_storageDTO machine_storageDTO) {
+        try{
+            System.out.println(machine_storageDTO.getMachine_id());
+            System.out.println(machine_storageDTO.getGarbage_type());
+            System.out.println(machine_storageDTO.getStorage());
+            Machine machine=machineRepository.findById(machine_storageDTO.getMachine_id()).get();
+            System.out.println(machine.toString());
+            Garbage_type garbage_type=garbageTypeRepository.findById(machine_storageDTO.getGarbage_type()).get();
+            System.out.println(garbage_type.toString());
+            Machine_storage machine_storageData = machine_storageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
+            System.out.println(machine_storageData.toString());
+            System.out.println(machine_storageData.toString());
+            machine_storageData.setStorage(machine_storageDTO.getStorage());
+            System.out.println(4);
+            if(machine_storageData.getStorage()>=0.5){
+                System.out.println("Sent 50% notification");
+            }else if(machine_storageData.getStorage()>=0.8){
+                System.out.println("Sent 80% notification");//TODO: send notification
+            }
 
+            return new ResponseEntity<>(machine_storageRepository.save(machine_storageData), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+
+    }
     @PatchMapping("/machine_storage/{id}")
     public ResponseEntity<Machine_storage> patchMachine_storage(@PathVariable("id") long id, @RequestBody Machine_storageDTO machine_storageDTO) {
         Optional<Machine_storage> machine_storageData = machine_storageRepository.findById(id);
@@ -67,11 +95,11 @@ public class MachineStorageController {
         if (machine_storageData.isPresent()) {
             System.out.println(machine_storageDTO.getMachine_id());
             Machine_storage _machine_storage = machine_storageData.get();
-            if(machine_storageDTO.getMachine_id()!=machine_storageData.get().getMachine_id().getId() ){
-                _machine_storage.setMachine_id(machine);
+            if(machine_storageDTO.getMachine_id()!=machine_storageData.get().getMachine().getId() ){
+                _machine_storage.setMachine(machine);
             }
-            if(machine_storageDTO.getGarbage_type()!=machine_storageData.get().getGarbage_type().getId()){
-                _machine_storage.setGarbage_type(garbage_type);
+            if(machine_storageDTO.getGarbage_type()!=machine_storageData.get().getGarbageType().getId()){
+                _machine_storage.setGarbageType(garbage_type);
             }
             return new ResponseEntity<>(machine_storageRepository.save(_machine_storage), HttpStatus.OK);
         } else {
@@ -87,8 +115,8 @@ public class MachineStorageController {
         if (machine_storageData.isPresent()) {
             System.out.println(machine_storageDTO.getMachine_id());
             Machine_storage _machine_storage = machine_storageData.get();
-            _machine_storage.setMachine_id(machine);
-            _machine_storage.setGarbage_type(garbage_type);
+            _machine_storage.setMachine(machine);
+            _machine_storage.setGarbageType(garbage_type);
             return new ResponseEntity<>(machine_storageRepository.save(_machine_storage), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
