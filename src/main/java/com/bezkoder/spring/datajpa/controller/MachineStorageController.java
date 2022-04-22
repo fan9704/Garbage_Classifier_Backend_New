@@ -61,18 +61,10 @@ public class MachineStorageController {
     @PatchMapping("/machine_storage")
     public ResponseEntity<Machine_storage> patchMachine_storageWithJSON(@RequestBody Machine_storageDTO machine_storageDTO) {
         try{
-            System.out.println(machine_storageDTO.getMachine_id());
-            System.out.println(machine_storageDTO.getGarbage_type());
-            System.out.println(machine_storageDTO.getStorage());
             Machine machine=machineRepository.findById(machine_storageDTO.getMachine_id()).get();
-            System.out.println(machine.toString());
             Garbage_type garbage_type=garbageTypeRepository.findById(machine_storageDTO.getGarbage_type()).get();
-            System.out.println(garbage_type.toString());
             Machine_storage machine_storageData = machine_storageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
-            System.out.println(machine_storageData.toString());
-            System.out.println(machine_storageData.toString());
             machine_storageData.setStorage(machine_storageDTO.getStorage());
-            System.out.println(4);
             if(machine_storageData.getStorage()>=0.5){
                 System.out.println("Sent 50% notification");
             }else if(machine_storageData.getStorage()>=0.8){
