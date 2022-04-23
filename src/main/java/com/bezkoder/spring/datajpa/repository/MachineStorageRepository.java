@@ -5,11 +5,12 @@ import com.bezkoder.spring.datajpa.model.Machine_storage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
 
 @Repository
 public interface MachineStorageRepository extends JpaRepository<Machine_storage, Long> {
-//    Machine_storage findByMachine(Machine machine);
-//    Machine_storage findByGarbageType(Garbage_type garbage_type);
+    List<Machine_storage> findByMachine(Machine machine);
+    List<Machine_storage> findByGarbageType(Garbage_type garbage_type);
     Machine_storage findOneByMachineAndGarbageType(Machine machine,Garbage_type garbage_type);
 }

@@ -1,6 +1,8 @@
 package com.bezkoder.spring.datajpa.service;
 
 import com.bezkoder.spring.datajpa.model.Bank_acct;
+import com.bezkoder.spring.datajpa.model.Bank_type;
+import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,12 @@ public class  BankAcctService {
 
         return bank_accts;
     }
-
+//    public List<Bank_acct> findByBankType(Bank_type bank_type){
+//        return bankAcctRepository.findByBankType(bank_type);
+//    }
+    public Bank_acct findOneByUser(User user){
+        return  bankAcctRepository.findOneByUser(user);
+    }
     public Long count() {
 
         return bankAcctRepository.count();

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.bezkoder.spring.datajpa.model.*;
+import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
 import com.bezkoder.spring.datajpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.bezkoder.spring.datajpa.model.Wallet;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
-import com.bezkoder.spring.datajpa.model.User;
-import com.bezkoder.spring.datajpa.model.UserDTO;
-import com.bezkoder.spring.datajpa.model.LoginDTO;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 
 @CrossOrigin
@@ -38,7 +36,8 @@ public class UserController {
     UserService userService;
     @Autowired
     WalletRepository walletRepository;
-
+    @Autowired
+    BankAcctRepository bankAcctRepository;
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(){
         try {
@@ -85,9 +84,10 @@ public class UserController {
             String password= userDTO.getPassword();
             String email= userDTO.getEmail();
             Boolean active= userDTO.getActive();
-            User user=new User(username,email,password,name,lastname,active,null);
+            User user=new User(username,email,password,name,lastname,active);
             userService.saveUser(user);
            walletRepository.save(new Wallet(new BigDecimal("0"),"Create Account",user));
+           bankAcctRepository.save(new Bank_acct(null,null,user));
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

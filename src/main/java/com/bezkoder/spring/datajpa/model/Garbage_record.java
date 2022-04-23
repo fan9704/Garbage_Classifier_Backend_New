@@ -1,4 +1,5 @@
 package com.bezkoder.spring.datajpa.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Setter
 @Table(name = "Garbage_record")
 public class Garbage_record {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

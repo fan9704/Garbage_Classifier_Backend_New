@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,8 +45,42 @@ public class MachineStorageController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/machine_storage/machine/{id}")
+    public List<Machine_storage> getMachine_storageByMachineId(@PathVariable("id") long id) {
+        try{
+            Optional<Machine> machineData=machineRepository.findById(id);
+            List<Machine_storage> machine_storageData;
+            if(machineData.isPresent()){
+                machine_storageData = machine_storageRepository.findByMachine(machineData.get());
+                System.out.println(machine_storageData.toString());
+            }else{
+                machine_storageData = new ArrayList<Machine_storage>();
+            }
+            return machine_storageData;
+        }catch (Exception e){
+            List<Machine_storage> machine_storageData =new ArrayList<Machine_storage>();
+            return machine_storageData;
+        }
 
+    }
+    @GetMapping("/machine_storage/garbage_type/{id}")
+    public List<Machine_storage> getMachine_storageByGarbageType(@PathVariable("id") long id) {
+        try{
+            Optional<Garbage_type> garbage_typeData=garbageTypeRepository.findById(id);
+            List<Machine_storage> machine_storageData;
+            if(garbage_typeData.isPresent()){
+                machine_storageData = machine_storageRepository.findByGarbageType(garbage_typeData.get());
+                System.out.println(machine_storageData.toString());
+            }else{
+                machine_storageData = new ArrayList<Machine_storage>();
+            }
+            return machine_storageData;
+        }catch (Exception e){
+            List<Machine_storage> machine_storageData =new ArrayList<Machine_storage>();
+            return machine_storageData;
+        }
 
+    }
     @PostMapping("/machine_storage")
     public ResponseEntity<Machine_storage> createMachine_storage(@RequestBody Machine_storageDTO machine_storageDTO) {
         try {

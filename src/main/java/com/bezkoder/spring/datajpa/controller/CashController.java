@@ -41,27 +41,27 @@ public class CashController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @PostMapping("/cash")
-    public ResponseEntity transferMoney(@RequestBody CashDTO CashDTO) {
-        long userId = CashDTO.getUserId();
-        Optional<User> findUser = userRepository.findById( userId);
-        if (!findUser.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        User user = findUser.get();
-        BigDecimal receiveCash = new BigDecimal(CashDTO.getCash());
-        BigDecimal currentCash = walletRepository.getCurrentCash((int)userId);
-        if (
-                currentCash.compareTo(receiveCash) == -1
-                        || receiveCash.compareTo(BigDecimal.ZERO) != 1
-                        || user.getBank_acct() == null
-        ) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        BigDecimal transfer = receiveCash.multiply(new BigDecimal("-1"));
-        String description = String.format("transfer %s dollar", receiveCash.toString());
-        transferMoneyRecordService.saveRecord(user, receiveCash);
-        walletRepository.save(new Wallet(transfer, description, user));
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PostMapping("/cash")
+//    public ResponseEntity transferMoney(@RequestBody CashDTO CashDTO) {
+//        long userId = CashDTO.getUserId();
+//        Optional<User> findUser = userRepository.findById( userId);
+//        if (!findUser.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        User user = findUser.get();
+//        BigDecimal receiveCash = new BigDecimal(CashDTO.getCash());
+//        BigDecimal currentCash = walletRepository.getCurrentCash((int)userId);
+//        if (
+//                currentCash.compareTo(receiveCash) == -1
+//                        || receiveCash.compareTo(BigDecimal.ZERO) != 1
+//                        || user.getBank_acct() == null
+//        ) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        BigDecimal transfer = receiveCash.multiply(new BigDecimal("-1"));
+//        String description = String.format("transfer %s dollar", receiveCash.toString());
+//        transferMoneyRecordService.saveRecord(user, receiveCash);
+//        walletRepository.save(new Wallet(transfer, description, user));
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }

@@ -10,9 +10,10 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Back_acctDTO {
-    private long id;
+public class Bank_acctDTO {
+//    private long id;
 //    private  Bank_type bank_type;
-    private  int bank_type;
+    private  long bank_type;
     private String account_code;
+    private long user;
 }

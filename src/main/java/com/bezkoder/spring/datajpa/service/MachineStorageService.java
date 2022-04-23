@@ -31,12 +31,12 @@ public class MachineStorageService {
 
         machineStorageRepository.deleteById(userId);
     }
-//    public Machine_storage findByMachine(Machine machine){
-//        return machineStorageRepository.findByMachine(machine);
-//    }
-//    public Machine_storage findByGarbageType(Garbage_type garbage_type){
-//        return  machineStorageRepository.findByGarbageType(garbage_type);
-//    }
+    public List<Machine_storage> findByMachine(Machine machine){
+        return machineStorageRepository.findByMachine(machine);
+    }
+    public List<Machine_storage> findByGarbageType(Garbage_type garbage_type){
+        return  machineStorageRepository.findByGarbageType(garbage_type);
+    }
     public  Machine_storage findOneByMachineAndGarbageType(Machine machine,Garbage_type garbage_type){
          return machineStorageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
 

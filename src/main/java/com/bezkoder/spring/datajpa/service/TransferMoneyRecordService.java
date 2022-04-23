@@ -36,8 +36,8 @@ public class TransferMoneyRecordService {
         transferMoneyRecordRepository.deleteById(userId);
     }
 
-    public void saveRecord(User user, BigDecimal amount){
-        String accountCode = user.getBank_acct().getAccount_code();
-        transferMoneyRecordRepository.save(new Transfer_money_record(user,amount,accountCode));
-    }
+//    public void saveRecord(User user, BigDecimal amount){
+//        String accountCode = user.getBank_acct().getAccount_code();
+//        transferMoneyRecordRepository.save(new Transfer_money_record(user,amount,accountCode));
+//    }
 }

@@ -27,8 +27,8 @@ public class MachineController {
     private UserRepository userRepository;
     @GetMapping("/machines")
     public List<Machine> allMachines() {
-
-        return machineService.findAll();
+        return machineRepository.findAll();
+//        return machineService.findAll();
     }
 
     @GetMapping("/machine/{id}")

@@ -51,12 +51,12 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-    @OneToOne
-    @JoinColumn(name = "bank_acct_id")
-    private Bank_acct bank_acct;
+//    @OneToOne
+//    @JoinColumn(name = "bank_acct_id")
+//    private Bank_acct bank_acct;
 
 
-    public User(long id, String userName, String email, String password, String name, String lastName, Boolean active, Set<Role> roles, Bank_acct bank_acct) {
+    public User(long id, String userName, String email, String password, String name, String lastName, Boolean active, Set<Role> roles) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -65,17 +65,15 @@ public class User {
         this.lastName = lastName;
         this.active = active;
         this.roles = roles;
-        this.bank_acct = bank_acct;
         new Wallet(new BigDecimal("0"), "Create Account", this);
     }
 
-    public User(String userName, String email, String password, String name, String lastName, Boolean active, Bank_acct bank_acct) {
+    public User(String userName, String email, String password, String name, String lastName, Boolean active) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.active = active;
-        this.bank_acct = bank_acct;
     }
 }

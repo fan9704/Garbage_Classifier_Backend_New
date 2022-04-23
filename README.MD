@@ -3,8 +3,10 @@
 
 ----
 
-Web Interface Page SwaggerUI
-http://localhost:8080/swagger-ui/index.html
+[Web Interface Page SwaggerUI](http://localhost:8080/swagger-ui/index.html)
+
+[Remote Web Interface Page SwaggerUI](http://140.125.207.230:8080/swagger-ui/index.html)
+
 #### Spring Boot JPA MySQL - Building Rest CRUD API
 
 For more detail, please visit:
@@ -37,6 +39,31 @@ Fullstack:
 
 > [Vue.js + Spring Boot + PostgreSQL example](https://bezkoder.com/spring-boot-vue-js-postgresql/)
 
+----
+
+### Web Interface Detail
+#### User
+- User Register Post:/api/register
+- User Login Post:/api/login
+- **Register Api Will auto create user wallet and account**
+#### Machine
+- Link Machine Patch:/api/machine/link/{id}
+- UnLink Machine Patch:/api/machine/unlink/{id}
+#### MachineStorage
+- Update MachineStorage Patch:/api/machine_storage
+- Read MachineStorage By Machine Get:/api/machine_storage/machine/{ID}
+- Read MachineStorage By GarbageType Get:/api/machine_storage/garbage_type/{ID}
+#### BankAcct
+- Update User BankAccount Patch:api/bank_acct/user
+#### Every API Feature
+- Create something Post:/api/something
+- Read something By ID  GET:/api/something/{ID}
+- Update something Put:/api/something/{ID}
+- Delete something Delete:/api/something/{ID}
+- Read all something GET:/api/somethings
+- Update piece of something Patch:/api/something/{ID}
+
+----
 
 ## Run Spring Boot application
 ```
