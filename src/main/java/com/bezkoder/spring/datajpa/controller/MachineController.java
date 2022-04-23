@@ -1,10 +1,9 @@
 package com.bezkoder.spring.datajpa.controller;
 
-import com.bezkoder.spring.datajpa.model.LinkMachineDTO;
-import com.bezkoder.spring.datajpa.model.Machine;
-import com.bezkoder.spring.datajpa.model.MachineDTO;
-import com.bezkoder.spring.datajpa.model.User;
+import com.bezkoder.spring.datajpa.model.*;
+import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
+import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +24,13 @@ public class MachineController {
     private MachineRepository machineRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private GarbageTypeRepository garbageTypeRepository;
+    @Autowired
+    private MachineStorageRepository machineStorageRepository;
     @GetMapping("/machines")
     public List<Machine> allMachines() {
         return machineRepository.findAll();
-//        return machineService.findAll();
     }
 
     @GetMapping("/machine/{id}")
@@ -43,13 +45,16 @@ public class MachineController {
     }
 
 
-    @PostMapping("/machine")//TODO: Auto Create Machine storage
+    @PostMapping("/machine")
     public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             Machine _machine;
             _machine = machineRepository
                     .save(new Machine(machine.getLocation(),false,false));
-            
+            List<Garbage_type> garbageTypeList=garbageTypeRepository.findAll();
+            for (Garbage_type g: garbageTypeList) {
+                machineStorageRepository.save(new Machine_storage(_machine,g,0.0));
+            }
             return new ResponseEntity<>(_machine, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
