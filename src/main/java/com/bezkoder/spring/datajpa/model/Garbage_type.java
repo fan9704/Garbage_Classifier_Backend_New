@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "Garbage_type")
 public class Garbage_type {
-    @JsonIgnore
+//    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "Machine")
 public class Machine {
-    @JsonIgnore
+//    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
