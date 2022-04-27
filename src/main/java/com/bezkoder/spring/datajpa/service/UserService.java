@@ -42,7 +42,12 @@ public class UserService {
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
-    public boolean loginUser(String _password,String password){//TODO:FindByUsername Has Problem
+    public User changePassword(String username,String password){
+        User _user=userRepository.findByUserName(username);
+        _user.setPassword(bCryptPasswordEncoder.encode(password));
+        return userRepository.save(_user);
+    }
+    public boolean loginUser(String _password,String password){
         try{
             if(bCryptPasswordEncoder.matches(password,_password)){
                 return true;

@@ -111,20 +111,18 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
-//    @PutMapping("/user/{id}")
-//    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-//        Optional<User> userData = userRepository.findById(id);
-//
-//        if (userData.isPresent()) {
-//            User _user = userData.get();
-//            _user.setTitle(user.getTitle());
-//            _user.setDescription(user.getDescription());
-//            _user.setPublished(user.isPublished());
-//            return new ResponseEntity<>(userRepository.save(_tutorial), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PutMapping("/changePassword")
+    public ResponseEntity<User> changePassword(@RequestBody LoginDTO loginDTO){
+        try{
+            String username=loginDTO.getUsername();
+            String password=loginDTO.getPassword();
+            User userData=userService.changePassword(username,password);
+            return new ResponseEntity<>(userData, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
