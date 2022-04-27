@@ -45,10 +45,14 @@ Fullstack:
 #### User
 - User Register Post:/api/register
 - User Login Post:/api/login
+- User ChangePassword Put:/api/changePassword
+- User GetUserInfoByUsername Get:/api/userinfo/{username}
 - **Register Api Will auto create user wallet and account**
 #### Machine
 - Link Machine Patch:/api/machine/link/{id}
 - UnLink Machine Patch:/api/machine/unlink/{id}
+- SetCurrentMachineUserByMachineID Patch:/api/machine/user/{id}
+- **Create Machine Will Auto Create Any Garbage Type Of Machine Storage Data**
 #### MachineStorage
 - Update MachineStorage Patch:/api/machine_storage
 - Read MachineStorage By Machine Get:/api/machine_storage/machine/{ID}
