@@ -123,7 +123,15 @@ public class UserController {
         }
 
     }
-
+    @PutMapping("/EditUserInfo")
+    public ResponseEntity<User> EditUserIngo(@RequestBody UserDTO userDTO){
+        try{
+            User _user=userService.EditUserProfile(userDTO);
+            return new ResponseEntity<>(_user,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @DeleteMapping("/user/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
         try {

@@ -3,6 +3,7 @@ package com.bezkoder.spring.datajpa.service;
 
 import com.bezkoder.spring.datajpa.model.Role;
 import com.bezkoder.spring.datajpa.model.User;
+import com.bezkoder.spring.datajpa.model.UserDTO;
 import com.bezkoder.spring.datajpa.repository.RoleRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,13 @@ public class UserService {
         User _user=userRepository.findByUserName(username);
         _user.setPassword(bCryptPasswordEncoder.encode(password));
         return userRepository.save(_user);
+    }
+    public User EditUserProfile(UserDTO userDTO){
+        User _user=userRepository.findByUserName(userDTO.getUserName());
+        _user.setName(userDTO.getName());
+        _user.setEmail(userDTO.getEmail());
+        _user.setLastName(userDTO.getLastName());
+        return  userRepository.save(_user);
     }
     public boolean loginUser(String _password,String password){
         try{

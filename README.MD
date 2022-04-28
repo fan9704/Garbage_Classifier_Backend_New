@@ -47,6 +47,7 @@ Fullstack:
 - User Login Post:/api/login
 - User ChangePassword Put:/api/changePassword
 - User GetUserInfoByUsername Get:/api/userinfo/{username}
+- User EditUserInfo Put:/api/EditUserInfo
 - **Register Api Will auto create user wallet and account**
 #### Machine
 - Link Machine Patch:/api/machine/link/{id}
