@@ -17,6 +17,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "Machine")
 public class Machine {
+//    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -31,7 +32,7 @@ public class Machine {
     private boolean machine_lock;
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @Nullable
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private  User current_user;
 

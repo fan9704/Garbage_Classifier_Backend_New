@@ -1,4 +1,5 @@
 package com.bezkoder.spring.datajpa.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "Garbage_type")
 public class Garbage_type {
+//    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

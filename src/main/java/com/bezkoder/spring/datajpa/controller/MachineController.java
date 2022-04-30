@@ -1,9 +1,9 @@
 package com.bezkoder.spring.datajpa.controller;
 
-import com.bezkoder.spring.datajpa.model.Machine;
-import com.bezkoder.spring.datajpa.model.MachineDTO;
-import com.bezkoder.spring.datajpa.model.User;
+import com.bezkoder.spring.datajpa.model.*;
+import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
+import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +24,13 @@ public class MachineController {
     private MachineRepository machineRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private GarbageTypeRepository garbageTypeRepository;
+    @Autowired
+    private MachineStorageRepository machineStorageRepository;
     @GetMapping("/machines")
     public List<Machine> allMachines() {
-
-        return machineService.findAll();
+        return machineRepository.findAll();
     }
 
     @GetMapping("/machine/{id}")
@@ -42,20 +45,23 @@ public class MachineController {
     }
 
 
-    @PostMapping("/machine")//TODO: Auto Create Machine storage
+    @PostMapping("/machine")
     public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             Machine _machine;
             _machine = machineRepository
                     .save(new Machine(machine.getLocation(),false,false));
-            
+            List<Garbage_type> garbageTypeList=garbageTypeRepository.findAll();
+            for (Garbage_type g: garbageTypeList) {
+                machineStorageRepository.save(new Machine_storage(_machine,g,0.0));
+            }
             return new ResponseEntity<>(_machine, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PatchMapping("/machine/user/{id}")//Patch Machine current user TODO:Should change Integer to int or Long
-    public ResponseEntity<Machine> patchMachineUser(@PathVariable("id") long id,  long user_id) {
+    @PatchMapping("/machine/user/{id}")//Patch Machine current user
+    public ResponseEntity<Machine> patchMachineUser(@PathVariable("id") long id, long user_id) {
         Optional<Machine> machineData = machineRepository.findById(id);
         Optional<User> userData = userRepository.findById(user_id);
         if (machineData.isPresent()) {
@@ -67,25 +73,34 @@ public class MachineController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PatchMapping("/machine/{id}")
-    public ResponseEntity<Machine> patchMachine(@PathVariable("id") long id, @RequestBody Machine machine) {
-        Optional<Machine> machineData = machineRepository.findById(id);
-
+    @PatchMapping("/machine/link/{id}")
+    public ResponseEntity<Machine> LinkMachine(@RequestBody LinkMachineDTO linkMachineDTO) {
+        Optional<Machine> machineData = machineRepository.findById(linkMachineDTO.getId());
+        User userData=userRepository.findById(linkMachineDTO.getCurrent_user()).get();
         if (machineData.isPresent()) {
-            System.out.println(machine.getLocation()+machine.getCurrent_user());//Check Variable
             Machine _machine = machineData.get();
-            if(machine.getLocation()!=null || machine.getLocation()!= ""){
-                _machine.setLocation(machine.getLocation());
-            }
-            if(machine.getCurrent_user()!=null){
-                _machine.setLocation(machine.getLocation());//user id 0 is anonymous user
+            if(userData!=machineData.get().getCurrent_user()){
+                _machine.setUser_lock(true);
+                _machine.setCurrent_user(userData);
             }
             return new ResponseEntity<>(machineRepository.save(_machine), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @PatchMapping("/machine/unlink/{id}")
+    public ResponseEntity<Machine> UnlinkMachine(@RequestBody LinkMachineDTO linkMachineDTO) {
+        Optional<Machine> machineData = machineRepository.findById(linkMachineDTO.getId());
+        User anonymousUser=userRepository.findById((long)0).get();
+        if (machineData.isPresent()) {
+            Machine _machine = machineData.get();
+            _machine.setUser_lock(false);
+            _machine.setCurrent_user(anonymousUser);
+            return new ResponseEntity<>(machineRepository.save(_machine), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PutMapping("/machine/{id}")
     public ResponseEntity<Machine> updateMachine(@PathVariable("id") long id, @RequestBody Machine machine) {
         Optional<Machine> machineData = machineRepository.findById(id);

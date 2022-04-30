@@ -1,4 +1,5 @@
 package com.bezkoder.spring.datajpa.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "Bank_type")
 public class Bank_type {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

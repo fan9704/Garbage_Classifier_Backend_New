@@ -23,10 +23,13 @@ public class Bank_acct {
 
     @Column(name= "account_code")
     private String account_code;
-
-    public Bank_acct(Bank_type bank_type,String account_code){
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    public Bank_acct(Bank_type bank_type,String account_code,User user){
         this.bank_type=bank_type;
         this.account_code=account_code;
+        this.user=user;
     }
 
 }
