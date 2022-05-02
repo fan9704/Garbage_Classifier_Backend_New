@@ -49,6 +49,10 @@ Fullstack:
 - User GetUserInfoByUsername Get:/api/userinfo/{username}
 - User EditUserInfo Put:/api/EditUserInfo
 - **Register Api Will auto create user wallet and account**
+#### Wallet
+- Get WalletValueByUsername Get:/api/walletValue/{username}
+- List WalletInfoByUsername Get:/api/walletInfo/{username}
+- Create WalletRecord Post:/api/wallet
 #### Machine
 - Link Machine Patch:/api/machine/link/{id}
 - UnLink Machine Patch:/api/machine/unlink/{id}
