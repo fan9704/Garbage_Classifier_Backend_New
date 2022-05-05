@@ -2,9 +2,11 @@ package com.bezkoder.spring.datajpa.service;
 
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
 import com.bezkoder.spring.datajpa.model.User;
+import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
 import com.bezkoder.spring.datajpa.repository.TransferMoneyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.bezkoder.spring.datajpa.model.Bank_acct;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class TransferMoneyRecordService {
 
     @Autowired
     private TransferMoneyRecordRepository transferMoneyRecordRepository;
+    @Autowired
+    private BankAcctRepository bankAcctRepository;
 
     public List<Transfer_money_record> findAll() {
 
@@ -36,8 +40,9 @@ public class TransferMoneyRecordService {
         transferMoneyRecordRepository.deleteById(userId);
     }
 
-//    public void saveRecord(User user, BigDecimal amount){
-//        String accountCode = user.getBank_acct().getAccount_code();
-//        transferMoneyRecordRepository.save(new Transfer_money_record(user,amount,accountCode));
-//    }
+    public void saveRecord(User user, BigDecimal amount){
+        Bank_acct acct = bankAcctRepository.findOneByUser(user);
+        String accountCode = acct.getAccount_code();
+        transferMoneyRecordRepository.save(new Transfer_money_record(user,amount,accountCode));
+    }
 }

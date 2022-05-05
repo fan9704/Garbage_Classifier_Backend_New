@@ -1,5 +1,6 @@
 package com.bezkoder.spring.datajpa.service;
 
+import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.model.Wallet;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class WalletService {
         walletRepository.findAll().forEach(e -> garbage_types.add(e));
 
         return garbage_types;
+    }
+    public List<Wallet> findAllByUserid(long userId){
+        List<Wallet> wallets = new ArrayList<Wallet>();
+        walletRepository.findAllByUserid(userId).forEach(e -> wallets.add(e));
+       return  wallets;
     }
 
     public Long count() {
