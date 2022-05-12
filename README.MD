@@ -7,6 +7,22 @@
 
 [Remote Web Interface Page SwaggerUI](http://140.125.207.230:8080/swagger-ui/index.html)
 
+----
+
+### Structure of Project
+
+> Involve Application Frontend Backend Hardware
+
+[Application Project](https://github.com/lavender0526/Garbage_Classifier_App)
+
+[Frontend Project](https://github.com/fan9704/Garbage_Classifier_Frontend)
+
+[Backend Project](https://github.com/fan9704/Garbage_Classifier_Backend)
+
+[Hardware Project]()
+
+
+![](https://imgdb.net/storage/uploads/8904403f2b093016211626b8dc27a9107a9dc7fea222ef486cdddf2189ce4e41.png)
 #### Spring Boot JPA MySQL - Building Rest CRUD API
 
 For more detail, please visit:
@@ -54,8 +70,8 @@ Fullstack:
 - List WalletInfoByUsername Get:/api/walletInfo/{username}
 - Create WalletRecord Post:/api/wallet
 #### Machine
-- Link Machine Patch:/api/machine/link/{id}
-- UnLink Machine Patch:/api/machine/unlink/{id}
+- Link Machine Patch:/api/machine/link/
+- UnLink Machine Patch:/api/machine/unlink/
 - SetCurrentMachineUserByMachineID Patch:/api/machine/user/{id}
 - **Create Machine Will Auto Create Any Garbage Type Of Machine Storage Data**
 #### MachineStorage
