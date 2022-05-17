@@ -11,18 +11,12 @@ import com.bezkoder.spring.datajpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
+import org.springframework.web.bind.support.SessionStatus;
+
+import javax.servlet.http.HttpSession;
 
 @CrossOrigin
 @RestController
@@ -74,7 +68,27 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @GetMapping("/checkLogin")
+    public ResponseEntity<User> checkUserLogin(HttpSession session, SessionStatus sessionStatus){
+        String sessionUsername=session.getAttribute("username").toString();
+        System.out.println(sessionUsername);
+        if(session.getAttribute("username") != null){
+            User user=userRepository.findByUserName(sessionUsername);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/logout")
+    public ResponseEntity<String> userLogout(HttpSession session, SessionStatus sessionStatus){
+        if(session.getAttribute("username") != null){
+            session.removeAttribute("username");
+            sessionStatus.setComplete();
+            return new ResponseEntity<>("Logout", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Not Logout",HttpStatus.NOT_FOUND);
+        }
+    }
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody UserDTO userDTO) {
         try {
@@ -95,13 +109,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<User> loginUser(@RequestBody LoginDTO loginDTO, HttpSession session) {
         try {
             String username= loginDTO.getUsername();
             String password= loginDTO.getPassword();
             User userData = userRepository.findByUserName(username);
             String _password=userData.getPassword();
             if (userService.loginUser(_password,password)) {
+                session.setAttribute("username", username);
                 return new ResponseEntity<>(userData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

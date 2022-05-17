@@ -73,7 +73,7 @@ public class MachineController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PatchMapping("/machine/link/{id}")
+    @PatchMapping("/machine/link")
     public ResponseEntity<Machine> LinkMachine(@RequestBody LinkMachineDTO linkMachineDTO) {
         Optional<Machine> machineData = machineRepository.findById(linkMachineDTO.getId());
         User userData=userRepository.findById(linkMachineDTO.getCurrent_user()).get();
@@ -88,7 +88,7 @@ public class MachineController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PatchMapping("/machine/unlink/{id}")
+    @PatchMapping("/machine/unlink")
     public ResponseEntity<Machine> UnlinkMachine(@RequestBody LinkMachineDTO linkMachineDTO) {
         Optional<Machine> machineData = machineRepository.findById(linkMachineDTO.getId());
         User anonymousUser=userRepository.findById((long)0).get();
