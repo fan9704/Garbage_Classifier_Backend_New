@@ -3,8 +3,34 @@
 
 ----
 
-Web Interface Page SwaggerUI
-http://localhost:8080/swagger-ui/index.html
+[Web Interface Page SwaggerUI](http://localhost:8080/swagger-ui/index.html)
+
+[Remote Web Interface Page SwaggerUI](http://140.125.207.230:8080/swagger-ui/index.html)
+
+----
+
+### Structure of Project
+
+> Involve Application Frontend Backend Hardware
+
+[Application Project](https://github.com/lavender0526/Garbage_Classifier_App)
+
+[Frontend Project](https://github.com/fan9704/Garbage_Classifier_Frontend)
+
+[Backend Project](https://github.com/fan9704/Garbage_Classifier_Backend)
+
+[Hardware Project]()
+
+----
+
+### Software Interaction
+
+
+![](https://imgdb.net/storage/uploads/164f2fed45f5fcc8494eb9cf7d0856cc2f7d8700ab468a2cdfa540cccc622763.png)
+
+----
+
+![](https://imgdb.net/storage/uploads/8904403f2b093016211626b8dc27a9107a9dc7fea222ef486cdddf2189ce4e41.png)
 #### Spring Boot JPA MySQL - Building Rest CRUD API
 
 For more detail, please visit:
@@ -37,9 +63,42 @@ Fullstack:
 
 > [Vue.js + Spring Boot + PostgreSQL example](https://bezkoder.com/spring-boot-vue-js-postgresql/)
 
+----
+
+### Web Interface Detail
+#### User
+- User Register Post:/api/register
+- User Login Post:/api/login
+- User ChangePassword Put:/api/changePassword
+- User GetUserInfoByUsername Get:/api/userinfo/{username}
+- User EditUserInfo Put:/api/EditUserInfo
+- **Register Api Will auto create user wallet and account**
+#### Wallet
+- Get WalletValueByUsername Get:/api/walletValue/{username}
+- List WalletInfoByUsername Get:/api/walletInfo/{username}
+- Create WalletRecord Post:/api/wallet
+#### Machine
+- Link Machine Patch:/api/machine/link/
+- UnLink Machine Patch:/api/machine/unlink/
+- SetCurrentMachineUserByMachineID Patch:/api/machine/user/{id}
+- **Create Machine Will Auto Create Any Garbage Type Of Machine Storage Data**
+#### MachineStorage
+- Update MachineStorage Patch:/api/machine_storage
+- Read MachineStorage By Machine Get:/api/machine_storage/machine/{ID}
+- Read MachineStorage By GarbageType Get:/api/machine_storage/garbage_type/{ID}
+#### BankAcct
+- Update User BankAccount Patch:api/bank_acct/user
+#### Every API Feature
+- Create something Post:/api/something
+- Read something By ID  GET:/api/something/{ID}
+- Update something Put:/api/something/{ID}
+- Delete something Delete:/api/something/{ID}
+- Read all something GET:/api/somethings
+- Update piece of something Patch:/api/something/{ID}
+
+----
 
 ## Run Spring Boot application
 ```
 mvn spring-boot:run
 ```
-
