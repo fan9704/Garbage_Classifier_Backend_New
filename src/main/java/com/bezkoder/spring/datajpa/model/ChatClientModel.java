@@ -1,8 +1,10 @@
 package com.bezkoder.spring.datajpa.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class ChatClientModel {
     private String clientName;
 }
