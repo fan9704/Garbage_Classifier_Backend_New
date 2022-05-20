@@ -49,8 +49,9 @@ public class MachineController {
     public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             Machine _machine;
+            User _user=userRepository.findById((long)0).get();
             _machine = machineRepository
-                    .save(new Machine(machine.getLocation(),false,false));
+                    .save(new Machine(machine.getLocation(),false,false,_user));
             List<Garbage_type> garbageTypeList=garbageTypeRepository.findAll();
             for (Garbage_type g: garbageTypeList) {
                 machineStorageRepository.save(new Machine_storage(_machine,g,0.0));
