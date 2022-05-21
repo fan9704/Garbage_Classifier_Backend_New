@@ -70,7 +70,12 @@ public class UserController {
     }
     @GetMapping("/checkLogin")
     public ResponseEntity<User> checkUserLogin(HttpSession session, SessionStatus sessionStatus){
-        String sessionUsername=session.getAttribute("username").toString();
+        String sessionUsername;
+        try{
+            sessionUsername=session.getAttribute("username").toString();
+        }catch (Exception e){
+            sessionUsername=null;
+        }
         System.out.println(sessionUsername);
         if(session.getAttribute("username") != null){
             User user=userRepository.findByUserName(sessionUsername);
