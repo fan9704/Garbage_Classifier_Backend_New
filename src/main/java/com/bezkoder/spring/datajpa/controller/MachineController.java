@@ -6,6 +6,7 @@ import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.MachineService;
+import com.bezkoder.spring.datajpa.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,6 +85,7 @@ public class MachineController {
                 _machine.setUser_lock(true);
                 _machine.setCurrent_user(userData);
             }
+            WebSocketService.sendMessage(Long.toString(_machine.getId()),"true");
             return new ResponseEntity<>(machineRepository.save(_machine), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
