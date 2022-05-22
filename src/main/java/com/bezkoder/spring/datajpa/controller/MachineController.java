@@ -45,7 +45,7 @@ public class MachineController {
     }
 
     @PostMapping("/machine")
-    public ResponseEntity<Machine> createMachine(MachineDTO machine) {
+    public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             return new ResponseEntity<>(machineService.createMachine(machine), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -61,7 +61,7 @@ public class MachineController {
         return new ResponseEntity<>(machineService.lockUserLink(machineId),HttpStatus.OK);
     }
     @PutMapping("/machine/{id}")
-    public ResponseEntity<Machine> updateMachine(@PathVariable("id") long id,MachineDTO machineDTO) {
+    public ResponseEntity<Machine> updateMachine(@PathVariable("id") long id,@RequestBody MachineDTO machineDTO) {
         return new ResponseEntity(machineService.update(machineDTO,id), HttpStatus.OK);
     }
     @DeleteMapping("/machine/{machineId}")
