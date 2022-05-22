@@ -1,4 +1,4 @@
-package com.bezkoder.spring.datajpa;
+package com.bezkoder.spring.datajpa.configuration;
 
 
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-public class GlobalCorsConfig implements WebMvcConfigurer {
+public class GlobalCorsConfiguration implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 //映射路徑
