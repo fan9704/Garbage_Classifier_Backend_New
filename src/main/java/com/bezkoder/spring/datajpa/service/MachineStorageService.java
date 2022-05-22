@@ -27,6 +27,10 @@ public class MachineStorageService {
         return machineStorageRepository.count();
     }
 
+    public Machine_storage updata(Machine_storage machineStorage){
+        return machineStorageRepository.save(machineStorage);
+    }
+
     public void deleteById(Long userId) {
 
         machineStorageRepository.deleteById(userId);
@@ -38,7 +42,7 @@ public class MachineStorageService {
         return  machineStorageRepository.findByGarbageType(garbage_type);
     }
     public  Machine_storage findOneByMachineAndGarbageType(Machine machine,Garbage_type garbage_type){
-         return machineStorageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
+        return machineStorageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
 
     }
 }
