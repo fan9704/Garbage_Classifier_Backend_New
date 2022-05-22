@@ -1,4 +1,4 @@
-package com.bezkoder.spring.datajpa;
+package com.bezkoder.spring.datajpa.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @EnableOpenApi
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfiguration {
 
     @Value("${springfox.documentation.swagger-ui.enabled}")
     private boolean enabled;
