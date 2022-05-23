@@ -39,10 +39,10 @@ public class MachineController {
         return machineService.findAll();
     }
 
-    @GetMapping("/machines/location")
-    public List<Machine> getAllMachinesByLocation(String loaction)
+    @GetMapping("/machines/location/{location}")
+    public List<Machine> getAllMachinesByLocation(@PathVariable("location") String location)
     {
-        return machineService.findAllMachineByLocation(loaction);
+        return machineService.findAllMachineByLocation(location);
     }
 
     @GetMapping("/machine/{id}")
@@ -51,7 +51,7 @@ public class MachineController {
     }
 
     @PostMapping("/machine")
-    public ResponseEntity<Machine> createMachine(MachineDTO machine) {
+    public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             return new ResponseEntity<>(machineService.createMachine(machine), HttpStatus.CREATED);
         } catch (Exception e) {
