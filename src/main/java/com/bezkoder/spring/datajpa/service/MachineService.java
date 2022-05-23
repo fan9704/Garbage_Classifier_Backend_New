@@ -31,12 +31,15 @@ public class  MachineService {
     public Machine findMachineById(long mahcineId) {
         machineOptional = machineRepository.findById(mahcineId);
 
-
         return machineOptional.get();
     }
 
     public List<Machine> findAll() {
         return machineRepository.findAll();
+    }
+
+    public List<Machine> findAllMachineByLocation(String location){
+        return machineRepository.findAllMachineByLocation(location);
     }
 
     public Machine createMachine(MachineDTO machineDTO) {
