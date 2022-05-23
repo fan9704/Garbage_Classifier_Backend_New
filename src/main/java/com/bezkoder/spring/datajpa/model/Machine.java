@@ -23,7 +23,7 @@ import java.util.Set;
 @Setter
 @Table(name = "Machine")
 public class Machine {
-    //    @JsonIgnore
+//    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -45,7 +45,7 @@ public class Machine {
     @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private  User current_user;
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Machine_storage> machineStorages = new HashSet<>();
 
     @OneToMany(mappedBy = "machine_id", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
@@ -67,6 +67,9 @@ public class Machine {
         this.machine_lock=machine_lock;
 
     }
+
+
+
 
     public  void addMachineStorage(Machine_storage machineStorage){
         machineStorage.setMachine(this);

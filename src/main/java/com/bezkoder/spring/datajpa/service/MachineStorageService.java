@@ -42,7 +42,7 @@ public class MachineStorageService {
         return  machineStorageRepository.findByGarbageType(garbage_type);
     }
     public  Machine_storage findOneByMachineAndGarbageType(Machine machine,Garbage_type garbage_type){
-        return machineStorageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
+         return machineStorageRepository.findOneByMachineAndGarbageType(machine,garbage_type);
 
     }
 }

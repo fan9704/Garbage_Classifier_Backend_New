@@ -37,9 +37,9 @@ public class Machine_storage {
     @Column(name = "storage")
     private double storage;
     public Machine_storage(Machine machine,Garbage_type garbage_type,double storage){
-        this.machine=machine;
-        this.garbageType=garbage_type;
-        this.storage=storage;
+           this.machine=machine;
+           this.garbageType=garbage_type;
+           this.storage=storage;
     }
 
 }
