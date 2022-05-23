@@ -39,6 +39,12 @@ public class MachineController {
         return machineService.findAll();
     }
 
+    @GetMapping("/machines/location")
+    public List<Machine> getAllMachinesByLocation(String loaction)
+    {
+        return machineService.findAllMachineByLocation(loaction);
+    }
+
     @GetMapping("/machine/{id}")
     public ResponseEntity<Machine> getMachineById(@PathVariable("id") long id) {
         return new ResponseEntity<>(machineService.findMachineById(id),HttpStatus.OK);
