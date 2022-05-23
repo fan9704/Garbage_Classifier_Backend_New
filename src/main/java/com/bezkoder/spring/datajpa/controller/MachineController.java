@@ -40,7 +40,7 @@ public class MachineController {
     }
 
     @GetMapping("/machines/location")
-    public List<Machine> getAllMachinesByLocation(String loaction)
+    public List<Machine> getAllMachinesByLocation(@RequestBody String loaction)
     {
         return machineService.findAllMachineByLocation(loaction);
     }
@@ -51,7 +51,7 @@ public class MachineController {
     }
 
     @PostMapping("/machine")
-    public ResponseEntity<Machine> createMachine(MachineDTO machine) {
+    public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
         try {
             return new ResponseEntity<>(machineService.createMachine(machine), HttpStatus.CREATED);
         } catch (Exception e) {
