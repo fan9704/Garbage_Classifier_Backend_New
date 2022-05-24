@@ -2,7 +2,7 @@ package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.model.Wallet;
-import com.bezkoder.spring.datajpa.model.WalletDTO;
+import com.bezkoder.spring.datajpa.dto.WalletDTO;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
 import com.bezkoder.spring.datajpa.service.WalletService;

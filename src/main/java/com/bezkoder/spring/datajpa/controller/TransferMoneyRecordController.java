@@ -1,7 +1,7 @@
 package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
-import com.bezkoder.spring.datajpa.model.Transfer_money_recordDTO;
+import com.bezkoder.spring.datajpa.dto.Transfer_money_recordDTO;
 import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.repository.TransferMoneyRecordRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
