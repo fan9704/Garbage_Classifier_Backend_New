@@ -39,10 +39,10 @@ public class MachineController {
         return machineService.findAll();
     }
 
-    @GetMapping("/machines/location/{location}")
-    public List<Machine> getAllMachinesByLocation(@PathVariable("location") String location)
+    @GetMapping("/machines/location")
+    public List<Machine> getAllMachinesByLocation(@RequestBody String loaction)
     {
-        return machineService.findAllMachineByLocation(location);
+        return machineService.findAllMachineByLocation(loaction);
     }
 
     @GetMapping("/machine/{id}")
@@ -72,13 +72,28 @@ public class MachineController {
         return new ResponseEntity<>(machineService.lockUserLink(machineId),HttpStatus.OK);
     }
     @PatchMapping("/machine/{machineId}")
-    public ResponseEntity<Machine> updataRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine){
+    public ResponseEntity<Machine> updateRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine){
         return machineService.updataRecycleRecord(machineId, machine);
     }
-
+    @PatchMapping("/machine/unlock/{machineId}")
+    public ResponseEntity<Machine> unlockMachine(@PathVariable("machineId") long machineId){
+        try{
+            return new ResponseEntity<Machine>(machineService.unlockMachine(machineId),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PatchMapping("/machine/lock/{machineId}")
+    public ResponseEntity<Machine> lockMachine(@PathVariable("machineId") long machineId){
+        try{
+            return new ResponseEntity<Machine>(machineService.lockMachine(machineId),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PutMapping("/machine/{id}")
     public ResponseEntity<Machine> updateMachine(@PathVariable("id") long id,MachineDTO machineDTO) {
-        return new ResponseEntity(machineService.updata(machineDTO,id), HttpStatus.OK);
+        return new ResponseEntity(machineService.update(machineDTO,id), HttpStatus.OK);
     }
     @DeleteMapping("/machine/{machineId}")
     public ResponseEntity<Machine> deleteMachine(@PathVariable("machineId") long machineId) {

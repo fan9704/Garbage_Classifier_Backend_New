@@ -133,7 +133,7 @@ public class  MachineService {
         machineRepository.deleteById(machineId);
     }
 
-    public Machine updata(MachineDTO machineDTO, long id) {
+    public Machine update(MachineDTO machineDTO, long id) {
         _machine = findMachineById(id);
         _machine.setMachinePicture(machineDTO.getMachinePicture());
         _machine.setMachine_lock(machineDTO.isMachine_lock());

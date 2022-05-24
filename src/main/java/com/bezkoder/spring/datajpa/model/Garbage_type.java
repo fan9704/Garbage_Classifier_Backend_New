@@ -10,8 +10,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "Garbage_type")
 public class Garbage_type {
 //    @JsonIgnore

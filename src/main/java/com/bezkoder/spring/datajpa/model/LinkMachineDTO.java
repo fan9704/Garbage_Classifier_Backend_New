@@ -6,8 +6,6 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
-@Getter
-@Setter
 @NoArgsConstructor
 public class LinkMachineDTO {
     private  long id;
