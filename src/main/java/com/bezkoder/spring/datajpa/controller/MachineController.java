@@ -1,7 +1,7 @@
 package com.bezkoder.spring.datajpa.controller;
 
-import com.bezkoder.spring.datajpa.model.LinkMachineDTO;
-import com.bezkoder.spring.datajpa.model.MachineDTO;
+import com.bezkoder.spring.datajpa.dto.MachineDTO;
+import com.bezkoder.spring.datajpa.dto.MachineResponseDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
@@ -13,9 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -35,7 +34,7 @@ public class MachineController {
 
 
     @GetMapping("/machines")
-    public List<Machine> getAllMachines() {
+    public List<MachineResponseDTO> getAllMachines() throws SQLException {
         return machineService.findAll();
     }
 

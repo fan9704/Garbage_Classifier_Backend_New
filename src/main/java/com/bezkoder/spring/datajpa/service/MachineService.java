@@ -1,7 +1,9 @@
 package com.bezkoder.spring.datajpa.service;
 
 
-import com.bezkoder.spring.datajpa.model.MachineDTO;
+import com.bezkoder.spring.datajpa.dto.MachineDTO;
+import com.bezkoder.spring.datajpa.dto.MachineResponseDTO;
+import com.bezkoder.spring.datajpa.dto.Machine_storageDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
 
 
 @Service
-public class  MachineService {
+public class MachineService {
 
     @Autowired
     private MachineRepository machineRepository;
@@ -34,11 +38,33 @@ public class  MachineService {
         return machineOptional.get();
     }
 
-    public List<Machine> findAll() {
-        return machineRepository.findAll();
+    public List<MachineResponseDTO> findAll() throws SQLException {
+        Base64.Encoder encoder = Base64.getEncoder();
+        List<Machine> _machineList = machineRepository.findAll();
+        List<MachineResponseDTO> machineList = new ArrayList<>();
+        for (Machine _machine : _machineList) {
+            MachineResponseDTO machine = new MachineResponseDTO(
+                    _machine.getId(),
+                    _machine.getLocation(),
+                    _machine.isUser_lock(),
+                    _machine.isMachine_lock(),
+                    _machine.getGarbage_records(),
+                    _machine.getMachineStorages(),
+                    null);
+            Blob blob = _machine.getMachinePicture();
+            if (blob != null) {
+                byte[] valueArr = null;
+                valueArr = blob.getBytes(1L, (int) blob.length());
+                String encodedText = encoder.encodeToString(valueArr);
+                machine.setMachinePicture(encodedText);
+            }
+            machineList.add(machine);
+        }
+        return machineList;
     }
 
-    public List<Machine> findAllMachineByLocation(String location){
+
+    public List<Machine> findAllMachineByLocation(String location) {
         return machineRepository.findAllMachineByLocation(location);
     }
 
@@ -147,16 +173,14 @@ public class  MachineService {
 
         _machine = findMachineById(machineId);
         Set<Machine_storage> machineStorages = new HashSet<>();
-        Garbage_record garbage_record =new Garbage_record();
+        Garbage_record garbage_record = new Garbage_record();
         Set<Garbage_record> garbage_records = new HashSet<>();
 
 
-
         machineStorages.add(
-                updataStorage(_machine.getMachineStorages(),machine.getMachineStorages())
+                updataStorage(_machine.getMachineStorages(), machine.getMachineStorages())
         );
         _machine.setMachineStorages(machineStorages);
-
 
 
         garbage_record.setMachine_id(_machine);
