@@ -75,7 +75,7 @@ public class GarbageRecordController {
             System.out.println(garbage_record.getGarbage_type());//Check Variable
             System.out.println(garbage_record.getWeight());
             System.out.println(garbage_record.getUser());
-            System.out.println(garbage_record.getTime_stamp());
+            System.out.println(garbage_record.getTime());
             System.out.println(garbage_record.getMachine_id());
             Garbage_record _garbage_record = garbage_recordData.get();
             if(garbage_record.getGarbage_type()!=null){
@@ -98,13 +98,13 @@ public class GarbageRecordController {
             System.out.println(garbage_record.getGarbage_type());//Check Variable
             System.out.println(garbage_record.getWeight());
             System.out.println(garbage_record.getUser());
-            System.out.println(garbage_record.getTime_stamp());
+            System.out.println(garbage_record.getTime());
             System.out.println(garbage_record.getMachine_id());
             Garbage_record _garbage_record = garbage_recordData.get();
             _garbage_record.setGarbage_type(garbage_record.getGarbage_type());
             _garbage_record.setWeight(garbage_record.getWeight());
             _garbage_record.setUser(garbage_record.getUser());
-            _garbage_record.setTime_stamp(garbage_record.getTime_stamp());
+            _garbage_record.setTime(garbage_record.getTime());
             _garbage_record.setMachine_id(garbage_record.getMachine_id());
 
             return new ResponseEntity<>(garbage_recordRepository.save(_garbage_record), HttpStatus.OK);
