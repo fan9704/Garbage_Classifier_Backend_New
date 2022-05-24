@@ -29,46 +29,38 @@ public class MachineService {
     @Autowired
     private MachineStorageService machineStorageService;
 
+
     private Machine _machine;
     private Optional<Machine> machineOptional;
+    Base64.Encoder encoder = Base64.getEncoder();
 
-    public Machine findMachineById(long mahcineId) {
+
+    public MachineResponseDTO findMachineById(long mahcineId) throws SQLException {
         machineOptional = machineRepository.findById(mahcineId);
 
-        return machineOptional.get();
+        return formatMachineResponse(machineOptional.get());
     }
 
     public List<MachineResponseDTO> findAll() throws SQLException {
-        Base64.Encoder encoder = Base64.getEncoder();
         List<Machine> _machineList = machineRepository.findAll();
         List<MachineResponseDTO> machineList = new ArrayList<>();
         for (Machine _machine : _machineList) {
-            MachineResponseDTO machine = new MachineResponseDTO(
-                    _machine.getId(),
-                    _machine.getLocation(),
-                    _machine.isUser_lock(),
-                    _machine.isMachine_lock(),
-                    _machine.getGarbage_records(),
-                    _machine.getMachineStorages(),
-                    null);
-            Blob blob = _machine.getMachinePicture();
-            if (blob != null) {
-                byte[] valueArr = null;
-                valueArr = blob.getBytes(1L, (int) blob.length());
-                String encodedText = encoder.encodeToString(valueArr);
-                machine.setMachinePicture(encodedText);
-            }
-            machineList.add(machine);
+            machineList.add(formatMachineResponse(_machine));
         }
         return machineList;
     }
 
 
-    public List<Machine> findAllMachineByLocation(String location) {
-        return machineRepository.findAllMachineByLocation(location);
+    public List<MachineResponseDTO> findAllMachineByLocation(String location) throws SQLException {
+        List<Machine> _machineList = machineRepository.findAllMachineByLocation(location);
+        List<MachineResponseDTO> machineList = new ArrayList<>();
+        for (Machine _machine : _machineList) {
+            machineList.add(formatMachineResponse(_machine));
+        }
+        return machineList;
     }
 
-    public Machine createMachine(MachineDTO machineDTO) {
+    public MachineResponseDTO createMachine(MachineDTO machineDTO) throws SQLException {
         _machine = new Machine();
         _machine.setMachinePicture(machineDTO.getMachinePicture());
         _machine.setLocation(machineDTO.getLocation());
@@ -90,12 +82,12 @@ public class MachineService {
         machineRepository.save(_machine);
 
 
-        return _machine;
+        return formatMachineResponse(_machine);
     }
 
-    public ResponseEntity linkMachine(long MachineId, long userId) {
+    public ResponseEntity linkMachine(long MachineId, long userId) throws SQLException {
 
-        _machine = findMachineById(MachineId);
+        _machine = machineRepository.getById(MachineId);
         User _user = userService.findUserById(userId);
 
         if (!_machine.isUser_lock()) {
@@ -105,15 +97,15 @@ public class MachineService {
             machineRepository.save(_machine);
 
 
-            return new ResponseEntity(_machine, HttpStatus.OK);
+            return new ResponseEntity(formatMachineResponse(_machine), HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 
-    public ResponseEntity unLinkMachine(long MachineId) {
+    public ResponseEntity unLinkMachine(long MachineId) throws SQLException {
 
-        _machine = findMachineById(MachineId);
+        _machine = machineRepository.getById(MachineId);
         User _user = userService.findUserById(0); // userId is anonymous user
 
         if (_machine.isUser_lock()) {
@@ -124,31 +116,31 @@ public class MachineService {
             machineRepository.save(_machine);
 
 
-            return new ResponseEntity(_machine, HttpStatus.OK);
+            return new ResponseEntity(formatMachineResponse(_machine), HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 
-    public Machine lockMachine(long machineId) {
-        _machine = findMachineById(machineId);
+    public MachineResponseDTO lockMachine(long machineId) throws SQLException {
+        _machine = machineRepository.getById(machineId);
         _machine.setMachine_lock(true);
 
-        return machineRepository.save(_machine);
+        return formatMachineResponse(machineRepository.save(_machine));
     }
 
-    public Machine unlockMachine(long machineId) {
-        _machine = findMachineById(machineId);
+    public MachineResponseDTO unlockMachine(long machineId) throws SQLException {
+        _machine = machineRepository.getById(machineId);
         _machine.setMachine_lock(false);
 
-        return machineRepository.save(_machine);
+        return formatMachineResponse(machineRepository.save(_machine));
     }
 
-    public Machine lockUserLink(long machineId) {
-        _machine = findMachineById(machineId);
+    public MachineResponseDTO lockUserLink(long machineId) throws SQLException {
+        _machine = machineRepository.getById(machineId);
         _machine.setUser_lock(true);
 
-        return machineRepository.save(_machine);
+        return formatMachineResponse(machineRepository.save(_machine));
     }
 
     public Long count() {
@@ -159,19 +151,19 @@ public class MachineService {
         machineRepository.deleteById(machineId);
     }
 
-    public Machine update(MachineDTO machineDTO, long id) {
-        _machine = findMachineById(id);
+    public MachineResponseDTO update(MachineDTO machineDTO, long id) throws SQLException {
+        _machine = machineRepository.getById(id);
         _machine.setMachinePicture(machineDTO.getMachinePicture());
         _machine.setMachine_lock(machineDTO.isMachine_lock());
         _machine.setUser_lock(machineDTO.isUser_lock());
         _machine.setLocation(machineDTO.getLocation());
 
-        return machineRepository.save(_machine);
+        return formatMachineResponse(machineRepository.save(_machine));
     }
 
-    public ResponseEntity<Machine> updataRecycleRecord(long machineId, MachineDTO machine) {
+    public ResponseEntity<MachineResponseDTO> updataRecycleRecord(long machineId, MachineDTO machine) throws SQLException {
 
-        _machine = findMachineById(machineId);
+        _machine = machineRepository.getById(machineId);
         Set<Machine_storage> machineStorages = new HashSet<>();
         Garbage_record garbage_record = new Garbage_record();
         Set<Garbage_record> garbage_records = new HashSet<>();
@@ -202,7 +194,7 @@ public class MachineService {
         );
 
 
-        return new ResponseEntity<>(machineRepository.save(_machine), HttpStatus.OK);
+        return new ResponseEntity<>(formatMachineResponse(machineRepository.save(_machine)), HttpStatus.OK);
     }
 
     public Machine_storage updataStorage(Set<Machine_storage> machineStorages, Machine_storageDTO machineStorage) {
@@ -222,6 +214,23 @@ public class MachineService {
 
     }
 
-
+    private MachineResponseDTO formatMachineResponse(Machine _machine) throws SQLException {
+        MachineResponseDTO machine = new MachineResponseDTO(
+                _machine.getId(),
+                _machine.getLocation(),
+                _machine.isUser_lock(),
+                _machine.isMachine_lock(),
+                _machine.getGarbage_records(),
+                _machine.getMachineStorages(),
+                null);
+        Blob blob = _machine.getMachinePicture();
+        if (blob != null) {
+            byte[] valueArr = null;
+            valueArr = blob.getBytes(1L, (int) blob.length());
+            String encodedText = encoder.encodeToString(valueArr);
+            machine.setMachinePicture(encodedText);
+        }
+        return machine;
+    }
 }
 
