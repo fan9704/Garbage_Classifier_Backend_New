@@ -6,8 +6,6 @@ import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
-@Getter
-@Setter
 @NoArgsConstructor
 public class LoginDTO {
     private String username;

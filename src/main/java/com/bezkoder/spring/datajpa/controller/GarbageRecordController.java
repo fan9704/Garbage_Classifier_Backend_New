@@ -30,7 +30,6 @@ public class GarbageRecordController {
     private  MachineRepository machineRepository;
     @GetMapping("/garbage_records")
     public List<Garbage_record> allGarbage_records() {
-
         return garbage_recordService.findAll();
     }
 

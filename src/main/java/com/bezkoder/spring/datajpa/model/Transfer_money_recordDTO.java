@@ -11,15 +11,10 @@ import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
-@Getter
-@Setter
 @NoArgsConstructor
 public class Transfer_money_recordDTO {
-//    private int id;
-//    private  User receiver;
     private  long receiver;
     private BigDecimal amount;
-//    private Timestamp time_stamp;
     private String bank_name;
 
 }
