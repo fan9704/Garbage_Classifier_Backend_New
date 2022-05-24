@@ -1,4 +1,5 @@
-package com.bezkoder.spring.datajpa.model;
+package com.bezkoder.spring.datajpa.dto;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.*;
@@ -11,8 +12,10 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Machine_storageDTO {
-    private  long machine_id;
+public class Garbage_recordDTO {
     private  long garbage_type;
-    private double storage;
+    private  double weight;
+    private  long user;
+    private  long machine_id;
+
 }

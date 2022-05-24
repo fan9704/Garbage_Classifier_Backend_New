@@ -3,7 +3,7 @@ package com.bezkoder.spring.datajpa.controller;
 import com.bezkoder.spring.datajpa.model.Garbage_type;
 import com.bezkoder.spring.datajpa.model.Machine;
 import com.bezkoder.spring.datajpa.model.Machine_storage;
-import com.bezkoder.spring.datajpa.model.Machine_storageDTO;
+import com.bezkoder.spring.datajpa.dto.Machine_storageDTO;
 import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;

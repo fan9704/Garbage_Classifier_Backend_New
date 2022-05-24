@@ -1,10 +1,9 @@
-package com.bezkoder.spring.datajpa.model;
+package com.bezkoder.spring.datajpa.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.*;
 import javax.persistence.*;
 import java.sql.Blob;
-import java.util.Set;
 
 
 @AllArgsConstructor

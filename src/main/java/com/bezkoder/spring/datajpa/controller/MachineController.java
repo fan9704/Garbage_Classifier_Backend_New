@@ -1,7 +1,7 @@
 package com.bezkoder.spring.datajpa.controller;
 
-import com.bezkoder.spring.datajpa.model.LinkMachineDTO;
-import com.bezkoder.spring.datajpa.model.MachineDTO;
+import com.bezkoder.spring.datajpa.dto.MachineDTO;
+import com.bezkoder.spring.datajpa.dto.MachineResponseDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
@@ -13,9 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -35,23 +34,22 @@ public class MachineController {
 
 
     @GetMapping("/machines")
-    public List<Machine> getAllMachines() {
+    public List<MachineResponseDTO> getAllMachines() throws SQLException {
         return machineService.findAll();
     }
 
     @GetMapping("/machines/location")
-    public List<Machine> getAllMachinesByLocation(@RequestBody String loaction)
-    {
-        return machineService.findAllMachineByLocation(loaction);
+    public List<MachineResponseDTO> getAllMachinesByLocation(String location) throws SQLException {
+        return machineService.findAllMachineByLocation(location);
     }
 
     @GetMapping("/machine/{id}")
-    public ResponseEntity<Machine> getMachineById(@PathVariable("id") long id) {
+    public ResponseEntity<MachineResponseDTO> getMachineById(@PathVariable("id") long id) throws SQLException {
         return new ResponseEntity<>(machineService.findMachineById(id),HttpStatus.OK);
     }
 
     @PostMapping("/machine")
-    public ResponseEntity<Machine> createMachine(@RequestBody MachineDTO machine) {
+    public ResponseEntity<MachineResponseDTO> createMachine(@RequestBody MachineDTO machine) {
         try {
             return new ResponseEntity<>(machineService.createMachine(machine), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -59,44 +57,44 @@ public class MachineController {
         }
     }
     @PatchMapping("/machine/{machineId}/link/{userId}")
-    public ResponseEntity<Machine> linkMachine(@PathVariable("machineId") long machineId ,@PathVariable("userId") long userId) {
+    public ResponseEntity<MachineResponseDTO> linkMachine(@PathVariable("machineId") long machineId ,@PathVariable("userId") long userId) throws SQLException {
             return machineService.linkMachine(machineId,userId);
     }
 
     @PatchMapping("/machine/{machineId}/unlink")
-    public ResponseEntity<Machine> unlinkMachine(@PathVariable("machineId") long machineId ) {
+    public ResponseEntity<MachineResponseDTO> unlinkMachine(@PathVariable("machineId") long machineId ) throws SQLException {
         return machineService.unLinkMachine(machineId);
     }
     @PatchMapping("/machine/{machineId}/lockUserLink")
-    public ResponseEntity<Machine> lockUserLink(@PathVariable("machineId") long machineId) {
+    public ResponseEntity<MachineResponseDTO> lockUserLink(@PathVariable("machineId") long machineId) throws SQLException {
         return new ResponseEntity<>(machineService.lockUserLink(machineId),HttpStatus.OK);
     }
     @PatchMapping("/machine/{machineId}")
-    public ResponseEntity<Machine> updateRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine){
+    public ResponseEntity<MachineResponseDTO> updateRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine) throws SQLException {
         return machineService.updataRecycleRecord(machineId, machine);
     }
     @PatchMapping("/machine/unlock/{machineId}")
-    public ResponseEntity<Machine> unlockMachine(@PathVariable("machineId") long machineId){
+    public ResponseEntity<MachineResponseDTO> unlockMachine(@PathVariable("machineId") long machineId){
         try{
-            return new ResponseEntity<Machine>(machineService.unlockMachine(machineId),HttpStatus.OK);
+            return new ResponseEntity<>(machineService.unlockMachine(machineId),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @PatchMapping("/machine/lock/{machineId}")
-    public ResponseEntity<Machine> lockMachine(@PathVariable("machineId") long machineId){
+    public ResponseEntity<MachineResponseDTO> lockMachine(@PathVariable("machineId") long machineId){
         try{
-            return new ResponseEntity<Machine>(machineService.lockMachine(machineId),HttpStatus.OK);
+            return new ResponseEntity<>(machineService.lockMachine(machineId),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @PutMapping("/machine/{id}")
-    public ResponseEntity<Machine> updateMachine(@PathVariable("id") long id,MachineDTO machineDTO) {
+    public ResponseEntity<MachineResponseDTO> updateMachine(@PathVariable("id") long id,MachineDTO machineDTO) throws SQLException {
         return new ResponseEntity(machineService.update(machineDTO,id), HttpStatus.OK);
     }
     @DeleteMapping("/machine/{machineId}")
-    public ResponseEntity<Machine> deleteMachine(@PathVariable("machineId") long machineId) {
+    public ResponseEntity<MachineResponseDTO> deleteMachine(@PathVariable("machineId") long machineId) {
         machineService.deleteById(machineId);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }

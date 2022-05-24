@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.bezkoder.spring.datajpa.model.LoginDTO;
-import com.bezkoder.spring.datajpa.model.UserDTO;
+import com.bezkoder.spring.datajpa.dto.LoginDTO;
+import com.bezkoder.spring.datajpa.dto.UserDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
 import com.bezkoder.spring.datajpa.service.UserService;

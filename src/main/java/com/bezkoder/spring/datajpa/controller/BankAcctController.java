@@ -1,7 +1,7 @@
 package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.Bank_acct;
-import com.bezkoder.spring.datajpa.model.Bank_acctDTO;
+import com.bezkoder.spring.datajpa.dto.Bank_acctDTO;
 import com.bezkoder.spring.datajpa.model.Bank_type;
 import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
