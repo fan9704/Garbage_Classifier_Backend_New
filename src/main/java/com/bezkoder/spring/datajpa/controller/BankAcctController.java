@@ -33,7 +33,16 @@ public class BankAcctController {
 
         return bank_acctService.findAll();
     }
-
+    @GetMapping("/back_acct/username/{username}")
+    public ResponseEntity<Bank_acct> getBank_acctByUsername(@PathVariable("username") String username) {
+        try{
+            User userData = userRepository.findByUserName(username);
+            Bank_acct bank_acct =bank_acctRepository.findOneByUser(userData);
+            return new ResponseEntity<>( bank_acct, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/bank_acct/{id}")
     public ResponseEntity<Bank_acct> getBank_acctById(@PathVariable("id") long id) {
         Optional<Bank_acct> bank_acctData = bank_acctRepository.findById(id);

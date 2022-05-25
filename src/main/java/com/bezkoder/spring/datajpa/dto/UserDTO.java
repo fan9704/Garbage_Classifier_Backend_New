@@ -2,13 +2,9 @@ package com.bezkoder.spring.datajpa.dto;
 
 import lombok.*;
 
-import javax.persistence.Entity;
 
-@Getter
-@Setter
 @Data
 public class UserDTO {
-//    private long id;
     private String userName;
     private String email;
     private String password;
