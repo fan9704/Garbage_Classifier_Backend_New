@@ -3,7 +3,7 @@ package com.bezkoder.spring.datajpa.service;
 
 import com.bezkoder.spring.datajpa.model.Role;
 import com.bezkoder.spring.datajpa.model.User;
-import com.bezkoder.spring.datajpa.model.UserDTO;
+import com.bezkoder.spring.datajpa.dto.UserDTO;
 import com.bezkoder.spring.datajpa.repository.RoleRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

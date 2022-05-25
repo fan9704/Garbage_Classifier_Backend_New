@@ -1,9 +1,5 @@
 package com.bezkoder.spring.datajpa.controller;
 
-import com.bezkoder.spring.datajpa.model.CashDTO;
-import com.bezkoder.spring.datajpa.model.User;
-import com.bezkoder.spring.datajpa.model.Wallet;
-import com.bezkoder.spring.datajpa.repository.TransferMoneyRecordRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
 import com.bezkoder.spring.datajpa.service.TransferMoneyRecordService;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController

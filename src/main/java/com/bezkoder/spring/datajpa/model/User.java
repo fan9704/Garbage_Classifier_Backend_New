@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -51,14 +52,15 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id",columnDefinition = "int default 0"))
     private Set<Role> roles;
 
-//    @OneToOne
-//    @JoinColumn(name = "bank_acct_id")
-//    private Bank_acct bank_acct;
 
     @OneToOne(mappedBy = "user_id",cascade = CascadeType.ALL)
     @JsonManagedReference
     private Wallet wallet;
 
+//    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+//    @JsonManagedReference
+//    @Nullable
+//    private Bank_acct bank_acct;
 
     public User(long id, String userName, String email, String password, String name, String lastName, Boolean active, Set<Role> roles) {
         this.id = id;
