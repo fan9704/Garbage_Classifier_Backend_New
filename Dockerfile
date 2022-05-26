@@ -1,7 +1,7 @@
-FROM openjdk:17-oracle
-ENV APP_HOME ~/桌面/Garbage_Classifier_Backend
-WORKDIR $APP_HOME
-#COPY build/libs/*.jar app.jar
+FROM maven:3.8.3-openjdk-17
+
+WORKDIR /app
+COPY . /app
 EXPOSE 8080
-#CMD ["java", "-jar", "app.jar"]
-CMD ["mvn spring-boot:run"]
+
+CMD [ "mvn","spring-boot:run" ]
