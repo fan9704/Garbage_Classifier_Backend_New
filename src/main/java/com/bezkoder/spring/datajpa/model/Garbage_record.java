@@ -1,6 +1,7 @@
 package com.bezkoder.spring.datajpa.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class Garbage_record {
 
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "machine_id")
     private  Machine machine_id;
 
