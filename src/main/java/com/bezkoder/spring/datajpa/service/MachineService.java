@@ -125,7 +125,7 @@ public class MachineService {
     public MachineResponseDTO lockMachine(long machineId) throws SQLException {
         _machine = machineRepository.getById(machineId);
         _machine.setMachine_lock(true);
-
+        
         return formatMachineResponse(machineRepository.save(_machine));
     }
 

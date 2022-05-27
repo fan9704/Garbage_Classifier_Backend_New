@@ -49,6 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/websocket/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers(loginPage).permitAll()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/registration").permitAll()
