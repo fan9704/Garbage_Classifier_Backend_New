@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin
@@ -24,6 +25,16 @@ public class WalletController {
     private WalletService walletService;
     @Autowired
     private UserRepository userRepository;
+    @GetMapping("/cash/{id}")
+    public ResponseEntity<HashMap<String, BigDecimal>> getCash(@PathVariable("id") int id) {
+        HashMap<String, BigDecimal> res = new HashMap<>();
+        BigDecimal cash = walletRepository.getCurrentCash(id);
+        if (cash == null) {
+            cash = new BigDecimal("0");
+        }
+        res.put("cash", cash);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
     @GetMapping("/walletInfo/{username}")
     public ResponseEntity<List<Wallet>> getWalletRecordByUsername(@PathVariable("username") String username){
         try{

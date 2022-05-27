@@ -19,7 +19,7 @@
 
 [Backend Project](https://github.com/fan9704/Garbage_Classifier_Backend)
 
-[Hardware Project]()
+[Hardware Project](https://github.com/fan9704/Garbage_Classifier_Hardware)
 
 ----
 
@@ -106,5 +106,11 @@ Fullstack:
 ## Run Spring Boot application
 ```
 mvn spring-boot:run
+```
+
+## shutdown through bash
+```
+ sudo lsof -i :8080 | grep LISTEN
+ kill <PID>
 ```
 
