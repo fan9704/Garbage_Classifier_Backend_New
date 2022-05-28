@@ -77,22 +77,28 @@ Fullstack:
 - User ChangePassword Put:/api/changePassword
 - User GetUserInfoByUsername Get:/api/userinfo/{username}
 - User EditUserInfo Put:/api/EditUserInfo
+- Check UserLoginStatus /Get:/api/checkLogin
+- User Logout /Get:/api/logout
 - **Register Api Will auto create user wallet and account**
 #### Wallet
 - Get WalletValueByUsername Get:/api/walletValue/{username}
 - List WalletInfoByUsername Get:/api/walletInfo/{username}
 - Create WalletRecord Post:/api/wallet
 #### Machine
-- Link Machine Patch:/api/machine/link/
-- UnLink Machine Patch:/api/machine/unlink/
-- SetCurrentMachineUserByMachineID Patch:/api/machine/user/{id}
+- Get All Machines By Location Get:/api/machines/location?location={location}
+- Link User Machine Patch:/api/machine/{machineId}/link/{userId}
+- UnLink User Machine Patch:/api/machine/{machineId}/unlink
+- Lock Machine Patch:/machine/lock/{machineId}
+- Unlock Machine Patch:/machine/unlock/{machineId}
+- Update Recycle Record Patch:/api/machine/{machineId}
 - **Create Machine Will Auto Create Any Garbage Type Of Machine Storage Data**
 #### MachineStorage
 - Update MachineStorage Patch:/api/machine_storage
 - Read MachineStorage By Machine Get:/api/machine_storage/machine/{ID}
 - Read MachineStorage By GarbageType Get:/api/machine_storage/garbage_type/{ID}
 #### BankAcct
-- Update User BankAccount Patch:api/bank_acct/user
+- Read BankAccount By Username Get:/api/back_acct/username/{username}
+- Update User BankAccount Patch:/api/bank_acct/user
 #### Every API Feature
 - Create something Post:/api/something
 - Read something By ID  GET:/api/something/{ID}
