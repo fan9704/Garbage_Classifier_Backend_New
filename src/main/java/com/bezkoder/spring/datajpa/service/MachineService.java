@@ -6,6 +6,7 @@ import com.bezkoder.spring.datajpa.dto.MachineResponseDTO;
 import com.bezkoder.spring.datajpa.dto.Machine_storageDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ public class MachineService {
     private UserService userService;
     @Autowired
     private MachineStorageService machineStorageService;
+    @Autowired
+    private FireBaseService fireBaseService;
 
 
     private Machine _machine;
@@ -161,7 +164,7 @@ public class MachineService {
         return formatMachineResponse(machineRepository.save(_machine));
     }
 
-    public ResponseEntity<MachineResponseDTO> updataRecycleRecord(long machineId, MachineDTO machine) throws SQLException {
+    public ResponseEntity<MachineResponseDTO> updataRecycleRecord(long machineId, MachineDTO machine) throws SQLException, FirebaseMessagingException {
 
         _machine = machineRepository.getById(machineId);
         Set<Machine_storage> machineStorages = new HashSet<>();
@@ -194,10 +197,12 @@ public class MachineService {
         );
 
 
+
+
         return new ResponseEntity<>(formatMachineResponse(machineRepository.save(_machine)), HttpStatus.OK);
     }
 
-    public Machine_storage updataStorage(Set<Machine_storage> machineStorages, Machine_storageDTO machineStorage) {
+    public Machine_storage updataStorage(Set<Machine_storage> machineStorages, Machine_storageDTO machineStorage) throws FirebaseMessagingException {
         Iterator<Machine_storage> machineStorageIterator = machineStorages.iterator();
         Machine_storage machineStorageTmp;
 
@@ -205,6 +210,9 @@ public class MachineService {
             machineStorageTmp = machineStorageIterator.next();
 
             if (machineStorageTmp.getGarbageType().getId() == machineStorage.getGarbage_type()) {
+                if (machineStorageTmp.getStorage() <50 && machineStorage.getStorage()>=50){
+                    sendNotification();
+                }
                 machineStorageTmp.setStorage(machineStorage.getStorage());
                 return machineStorageTmp;
             }
@@ -232,5 +240,18 @@ public class MachineService {
         }
         return machine;
     }
+
+
+    private void sendNotification() throws FirebaseMessagingException {
+        Note note = new Note();
+        note.setSubject("垃圾桶容量已達50%");
+        note.setContent("請盡速派人清理");
+        fireBaseService.sendNotification(note,"c4QJCd2FS-i15nJnC0gvFr:APA91bHPT0mToROLp_6seIwWg4e4YoVgVEB23RG9ml6WEYAWaShak4u1sF4UZoMBuMiQrIFN9dhJ0L1xy2G071dajhbHDyVTyC4CpJR6wbbQOPpDfTVzmwzhr8bfZYv5zE5AgFAt-AXS");
+
+
+    }
+
+
+
 }
 

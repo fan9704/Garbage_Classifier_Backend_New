@@ -22,7 +22,7 @@ import java.util.Optional;
 public class MachineStorageController {
     //TODO: Find by machine and garbage id
     @Autowired
-    private MachineStorageService machine_storageService;
+        private MachineStorageService machine_storageService;
     @Autowired
     private MachineStorageRepository machine_storageRepository;
     @Autowired

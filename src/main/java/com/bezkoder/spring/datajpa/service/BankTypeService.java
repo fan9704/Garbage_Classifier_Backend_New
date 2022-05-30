@@ -12,7 +12,6 @@ public class  BankTypeService {
 
     @Autowired
     private BankTypeRepository bankTypeRepository;
-
     public List<Bank_type> findAll() {
 
 
@@ -21,12 +20,10 @@ public class  BankTypeService {
 
         return bank_types;
     }
-
     public Long count() {
 
         return bankTypeRepository.count();
     }
-
     public void deleteById(Long userId) {
 
         bankTypeRepository.deleteById(userId);
