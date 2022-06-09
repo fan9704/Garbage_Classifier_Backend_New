@@ -164,7 +164,7 @@ public class MachineService {
         return formatMachineResponse(machineRepository.save(_machine));
     }
 
-    public ResponseEntity<MachineResponseDTO> updataRecycleRecord(long machineId, MachineDTO machine) throws SQLException, FirebaseMessagingException {
+    public ResponseEntity<MachineResponseDTO> updateRecycleRecord(long machineId, MachineDTO machine) throws SQLException, FirebaseMessagingException {
 
         _machine = machineRepository.getById(machineId);
         Set<Machine_storage> machineStorages = new HashSet<>();
@@ -173,7 +173,7 @@ public class MachineService {
 
 
         machineStorages.add(
-                updataStorage(_machine.getMachineStorages(), machine.getMachineStorages())
+                updateStorage(_machine.getMachineStorages(), machine.getMachineStorages())
         );
         _machine.setMachineStorages(machineStorages);
 
@@ -202,7 +202,7 @@ public class MachineService {
         return new ResponseEntity<>(formatMachineResponse(machineRepository.save(_machine)), HttpStatus.OK);
     }
 
-    public Machine_storage updataStorage(Set<Machine_storage> machineStorages, Machine_storageDTO machineStorage) throws FirebaseMessagingException {
+    public Machine_storage updateStorage(Set<Machine_storage> machineStorages, Machine_storageDTO machineStorage) throws FirebaseMessagingException {
         Iterator<Machine_storage> machineStorageIterator = machineStorages.iterator();
         Machine_storage machineStorageTmp;
 

@@ -23,16 +23,6 @@ public class MachineController {
 
     @Autowired
     private MachineService machineService;
-    @Autowired
-    private MachineRepository machineRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private GarbageTypeRepository garbageTypeRepository;
-    @Autowired
-    private MachineStorageRepository machineStorageRepository;
-
-
 
     @GetMapping("/machines")
     public List<MachineResponseDTO> getAllMachines() throws SQLException {
@@ -72,7 +62,7 @@ public class MachineController {
     }
     @PatchMapping("/machine/{machineId}")
     public ResponseEntity<MachineResponseDTO> updateRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine) throws SQLException, FirebaseMessagingException {
-        return machineService.updataRecycleRecord(machineId, machine);
+        return machineService.updateRecycleRecord(machineId, machine);
     }
     @PatchMapping("/machine/unlock/{machineId}")
     public ResponseEntity<MachineResponseDTO> unlockMachine(@PathVariable("machineId") long machineId){
