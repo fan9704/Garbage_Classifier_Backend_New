@@ -2,19 +2,12 @@ package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.model.Bank_acct;
 import com.bezkoder.spring.datajpa.dto.Bank_acctDTO;
-import com.bezkoder.spring.datajpa.model.Bank_type;
-import com.bezkoder.spring.datajpa.model.User;
-import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
-import com.bezkoder.spring.datajpa.repository.BankTypeRepository;
-import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.BankAcctService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
