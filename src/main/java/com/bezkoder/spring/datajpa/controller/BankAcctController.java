@@ -22,12 +22,6 @@ public class BankAcctController {
 
     @Autowired
     private BankAcctService bank_acctService;
-    @Autowired
-    private BankAcctRepository bank_acctRepository;
-    @Autowired
-    private BankTypeRepository bankTypeRepository;
-    @Autowired
-    private UserRepository userRepository;
     @GetMapping("/bank_accts")
     public List<Bank_acct> allBank_accts() {
 
@@ -35,93 +29,27 @@ public class BankAcctController {
     }
     @GetMapping("/back_acct/username/{username}")
     public ResponseEntity<Bank_acct> getBank_acctByUsername(@PathVariable("username") String username) {
-        try{
-            User userData = userRepository.findByUserName(username);
-            Bank_acct bank_acct =bank_acctRepository.findOneByUser(userData);
-            return new ResponseEntity<>( bank_acct, HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return bank_acctService.getBank_acctByUsername(username);
     }
     @GetMapping("/bank_acct/{id}")
     public ResponseEntity<Bank_acct> getBank_acctById(@PathVariable("id") long id) {
-        Optional<Bank_acct> bank_acctData = bank_acctRepository.findById(id);
-
-        if ( bank_acctData.isPresent()) {
-            return new ResponseEntity<>( bank_acctData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return bank_acctService.getBank_acctById(id);
     }
-
-
     @PostMapping("/bank_acct")
     public ResponseEntity<Bank_acct> createBank_acct(@RequestBody Bank_acctDTO bank_acctDTO) {
-        try {
-            Optional<User> _user = userRepository.findById(bank_acctDTO.getUser());
-           Optional<Bank_type> _bank_type =bankTypeRepository.findById(bank_acctDTO.getBank_type());
-            if(_bank_type.isPresent() && _user.isPresent()){
-                Bank_acct _bank_acct = bank_acctRepository
-                        .save(new Bank_acct(_bank_type.get(), bank_acctDTO.getAccount_code(),_user.get()));
-                return new ResponseEntity<>(_bank_acct, HttpStatus.CREATED);
-            }else{
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            }
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return bank_acctService.createBank_acct(bank_acctDTO);
     }
     @PatchMapping("/bank_acct/{id}")
     public ResponseEntity<Bank_acct> patchBank_type(@PathVariable("id") long id, @RequestBody Bank_acct bank_acct) {
-        Optional<Bank_acct> bank_acctData = bank_acctRepository.findById(id);
-
-        if (bank_acctData.isPresent()) {
-            System.out.println(bank_acct.getBank_type());//Check Variable
-            System.out.println(bank_acct.getAccount_code());
-            Bank_acct _bank_acct = bank_acctData.get();
-            if(bank_acct.getBank_type()!=null ){
-                _bank_acct.setBank_type(bank_acct.getBank_type());
-            }
-            if(bank_acct.getAccount_code()!="" ){
-                _bank_acct.setAccount_code(bank_acct.getAccount_code());
-            }
-            return new ResponseEntity<>(bank_acctRepository.save(_bank_acct), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return bank_acctService.patchBank_type(id,bank_acct);
     }
     @PatchMapping("/bank_acct/user/")
     public ResponseEntity<Bank_acct> patchUserBankAcct(@RequestBody Bank_acctDTO bank_acctDTO) {
-        try{
-            Optional<User> _user=userRepository.findById(bank_acctDTO.getUser());
-            if (_user.isPresent()) {
-                Bank_acct bank_acct = bank_acctRepository.findOneByUser(_user.get());
-                bank_acct.setBank_type(bankTypeRepository.findById(bank_acctDTO.getBank_type()).get());
-                bank_acct.setAccount_code(bank_acctDTO.getAccount_code());
-                return new ResponseEntity<>(bank_acctRepository.save(bank_acct), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        return bank_acctService.patchUserBankAcct(bank_acctDTO);
     }
     @PutMapping("/bank_acct/{id}")
     public ResponseEntity<Bank_acct> updateBank_type(@PathVariable("id") long id, @RequestBody Bank_acct bank_acct) {
-        Optional<Bank_acct> bank_acctData = bank_acctRepository.findById(id);
-
-        if (bank_acctData.isPresent()) {
-            System.out.println(bank_acct.getBank_type());//Check Variable
-            System.out.println(bank_acct.getAccount_code());
-            Bank_acct _bank_acct = bank_acctData.get();
-            _bank_acct.setBank_type(bank_acct.getBank_type());
-            _bank_acct.setAccount_code(bank_acct.getAccount_code());
-            return new ResponseEntity<>(bank_acctRepository.save(_bank_acct), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return bank_acctService.updateBank_type(id,bank_acct);
     }
     @DeleteMapping("/bank_acct/{id}")
     public void delete(@PathVariable String id) {
