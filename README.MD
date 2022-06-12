@@ -9,6 +9,14 @@
 
 ----
 
+##### Future Feature
+
+Distribute System Use Messaging Queue
+
+[RabbitMQ Messaging Manage Panel](http://140.125.207.230:15672/)
+
+----
+
 ### Structure of Project
 
 > Involve Application Frontend Backend Hardware
