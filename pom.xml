@@ -92,6 +92,7 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>5.2.1.RELEASE</version>
 		</dependency>
+		<!--Swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
@@ -102,10 +103,13 @@
 			<artifactId>springfox-oas</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<!--Swagger-->
+		<!--WebSocket-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<!--WebSocket-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-messaging</artifactId>
@@ -116,12 +120,37 @@
             <artifactId>commons-lang</artifactId>
             <version>2.5</version>
         </dependency>
+		<!--firebase-->
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
 			<version>7.0.0</version>
 		</dependency>
 
+		<!--RabbitMQ-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+			<version>2.3.5.RELEASE</version>
+		</dependency>
+		<!--RabbitMQ-->
+		<!--Redis Session-->
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!--Redis Session-->
+		<!--WebJar-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<!--WebJar-->
     </dependencies>
 
 	<build>

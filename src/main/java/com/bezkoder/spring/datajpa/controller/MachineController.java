@@ -8,6 +8,7 @@ import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import com.bezkoder.spring.datajpa.repository.MachineStorageRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.service.MachineService;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +23,6 @@ public class MachineController {
 
     @Autowired
     private MachineService machineService;
-    @Autowired
-    private MachineRepository machineRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private GarbageTypeRepository garbageTypeRepository;
-    @Autowired
-    private MachineStorageRepository machineStorageRepository;
-
-
 
     @GetMapping("/machines")
     public List<MachineResponseDTO> getAllMachines() throws SQLException {
@@ -70,8 +61,8 @@ public class MachineController {
         return new ResponseEntity<>(machineService.lockUserLink(machineId),HttpStatus.OK);
     }
     @PatchMapping("/machine/{machineId}")
-    public ResponseEntity<MachineResponseDTO> updateRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine) throws SQLException {
-        return machineService.updataRecycleRecord(machineId, machine);
+    public ResponseEntity<MachineResponseDTO> updateRecycleRecord(@PathVariable("machineId") long machineId, MachineDTO machine) throws SQLException, FirebaseMessagingException {
+        return machineService.updateRecycleRecord(machineId, machine);
     }
     @PatchMapping("/machine/unlock/{machineId}")
     public ResponseEntity<MachineResponseDTO> unlockMachine(@PathVariable("machineId") long machineId){
