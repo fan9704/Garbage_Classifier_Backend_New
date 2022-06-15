@@ -197,14 +197,16 @@ public class MachineService {
         return new ResponseEntity<>(formatMachineResponse(machineRepository.save(_machine)), HttpStatus.OK);
     }
 
-    public Machine_storage updataStorage(Set<Machine_storage> machineStorages, Machine_storageDTO machineStorage) {
+    public Machine_storage updataStorage(Set<Machine_storage> machineStorages
+    , Machine_storageDTO machineStorage) {
         Iterator<Machine_storage> machineStorageIterator = machineStorages.iterator();
         Machine_storage machineStorageTmp;
 
         while (machineStorageIterator.hasNext()) {
             machineStorageTmp = machineStorageIterator.next();
 
-            if (machineStorageTmp.getGarbageType().getId() == machineStorage.getGarbage_type()) {
+            if (machineStorageTmp.getGarbageType().getId() == 
+            machineStorage.getGarbage_type()) {
                 machineStorageTmp.setStorage(machineStorage.getStorage());
                 return machineStorageTmp;
             }
