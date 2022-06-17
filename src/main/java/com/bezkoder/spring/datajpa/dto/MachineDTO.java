@@ -9,7 +9,6 @@ import java.sql.Blob;
 @AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class MachineDTO {
 
     private String location;

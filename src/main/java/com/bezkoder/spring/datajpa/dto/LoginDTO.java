@@ -4,7 +4,8 @@ import lombok.Setter;
 import lombok.*;
 import javax.persistence.*;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginDTO {
