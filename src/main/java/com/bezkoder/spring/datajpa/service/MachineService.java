@@ -207,8 +207,7 @@ public class MachineService {
         Machine_storage machineStorageTmp;
 
         while (machineStorageIterator.hasNext()) {
-            machineStorageTmp = machineStorageIterator.next();
-
+            machineStorageTmp = machineStorageIterator.next(); 
             if (machineStorageTmp.getGarbageType().getId() == machineStorage.getGarbage_type()) {
                 if (machineStorageTmp.getStorage() <50 && machineStorage.getStorage()>=50){
                     sendNotification();
