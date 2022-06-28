@@ -3,7 +3,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

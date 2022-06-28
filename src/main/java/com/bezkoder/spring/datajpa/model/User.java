@@ -4,11 +4,11 @@ import javax.persistence.*;
 
 import com.bezkoder.spring.datajpa.model.Wallet;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.firebase.database.annotations.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -17,7 +17,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
@@ -48,6 +47,11 @@ public class User {
     private String lastName;
     @Column(name = "active")
     private Boolean active;
+
+    @Column(name = "firebase_token")
+    @Nullable
+    private String firebaseToken;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id",columnDefinition = "int default 0"))
     private Set<Role> roles;

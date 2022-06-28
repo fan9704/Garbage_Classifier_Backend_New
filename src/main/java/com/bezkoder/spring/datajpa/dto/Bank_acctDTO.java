@@ -5,7 +5,8 @@ import lombok.Setter;
 import lombok.*;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Bank_acctDTO {

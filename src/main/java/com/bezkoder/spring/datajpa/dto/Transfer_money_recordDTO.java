@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Transfer_money_recordDTO {
     private  long receiver;
     private BigDecimal amount;

@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Garbage_recordDTO {
