@@ -11,7 +11,7 @@ import com.bezkoder.spring.datajpa.repository.BankAcctRepository;
 import com.bezkoder.spring.datajpa.repository.RoleRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+//import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +37,8 @@ public class UserService {
     private WalletRepository walletRepository;
     @Autowired
     private BankAcctRepository bankAcctRepository;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+//    @Autowired
+//    private RabbitTemplate rabbitTemplate;
     @Autowired
     public UserService(UserRepository userRepository,
                        RoleRepository roleRepository,
@@ -166,25 +166,25 @@ public class UserService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    public ResponseEntity<User> putMessage(LoginDTO loginDTO, HttpSession session) {
-        try {
-
-            String username= loginDTO.getUsername();
-            String password= loginDTO.getPassword();
-            User userData = userRepository.findByUserName(username);
-            String _password=userData.getPassword();
-            rabbitTemplate.convertAndSend("tpu.queue", userData);
-            if (this.loginUser(_password,password)) {
-                session.setAttribute("username", username);
-                return new ResponseEntity<>(userData, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-
-    }
+//    public ResponseEntity<User> putMessage(LoginDTO loginDTO, HttpSession session) {
+//        try {
+//
+//            String username= loginDTO.getUsername();
+//            String password= loginDTO.getPassword();
+//            User userData = userRepository.findByUserName(username);
+//            String _password=userData.getPassword();
+//            rabbitTemplate.convertAndSend("tpu.queue", userData);
+//            if (this.loginUser(_password,password)) {
+//                session.setAttribute("username", username);
+//                return new ResponseEntity<>(userData, HttpStatus.OK);
+//            } else {
+//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+//        }
+//
+//    }
     //Utils Layer
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
