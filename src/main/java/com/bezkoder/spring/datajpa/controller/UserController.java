@@ -64,9 +64,9 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
-    @PostMapping("/put_message")
-    public ResponseEntity<User> putMessage(@RequestBody LoginDTO loginDTO, HttpSession session) {
-        return userService.putMessage(loginDTO,session);
-    }
+//    @PostMapping("/put_message")
+//    public ResponseEntity<User> putMessage(@RequestBody LoginDTO loginDTO, HttpSession session) {
+//        return userService.putMessage(loginDTO,session);
+//    }
 
 }
