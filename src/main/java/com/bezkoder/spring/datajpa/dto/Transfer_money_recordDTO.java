@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Transfer_money_recordDTO {
     private  long receiver;
     private BigDecimal amount;
