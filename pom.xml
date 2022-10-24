@@ -17,6 +17,9 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<testcontainers.version>1.15.2</testcontainers.version>
+		<flyway.user>root</flyway.user>
+		<flyway.password>AvenParking</flyway.password>
+		<flyway.schemas>garbage_classifier</flyway.schemas>
 	</properties>
 
 	<dependencies>
@@ -174,6 +177,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>6.5.5</version>
+				<configuration>
+					<url>jdbc:mysql://localhost:3306/garbage_classifier?useSSL=false</url>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
