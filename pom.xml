@@ -183,7 +183,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>6.5.5</version>
 				<configuration>
-					<url>jdbc:mysql://localhost:3307/garbage_classifier?useSSL=false?allowPublicKeyRetrieval=true</url>
+					<url>jdbc:mysql://localhost:3307/garbage_classifier?useSSL=false&allowPublicKeyRetrieval=true</url>
 				</configuration>
 			</plugin>
 		</plugins>
