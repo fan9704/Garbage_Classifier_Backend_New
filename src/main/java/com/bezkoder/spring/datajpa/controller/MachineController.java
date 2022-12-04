@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,6 +33,15 @@ public class MachineController {
     @GetMapping("/machines/location")
     public List<MachineResponseDTO> getAllMachinesByLocation(String location) throws SQLException {
         return machineService.findAllMachineByLocation(location);
+    }
+
+    @GetMapping("/machine/picture/location")
+    public ResponseEntity<Blob> findPictureByMachineLocation(String location){
+        try {
+            return new ResponseEntity<>(machineService.findPictureByMachineLocation(location), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/machine/{id}")
