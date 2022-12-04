@@ -6,8 +6,10 @@ import com.bezkoder.spring.datajpa.model.User;
 import com.bezkoder.spring.datajpa.repository.TransferMoneyRecordRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,7 +19,6 @@ import java.util.Optional;
 
 
 @Service
-
 public class TransferMoneyRecordService {
 
     @Autowired
@@ -25,7 +26,12 @@ public class TransferMoneyRecordService {
     @Autowired
     private UserRepository userRepository;
 
-    private TransferState transferState = new CheckTransferCashState(this);
+    @Autowired
+    @Qualifier("CheckUserExistState")
+    private TransferState transferState ;
+
+    @Autowired
+    private CheckTransferCashState checkTransferCashState ;
 
     public ResponseEntity<Transfer_money_record> getTransfer_money_recordById(long id) {
         Optional<Transfer_money_record> garbage_recordData = transferMoneyRecordRepository.findById(id);
@@ -37,6 +43,7 @@ public class TransferMoneyRecordService {
     }
     public ResponseEntity createTransfer_money_record(Transfer_money_recordDTO transfer_money_recordDTO) {
         try {
+            transferState = checkTransferCashState;
             handleTransfer(transfer_money_recordDTO);
             return transferState.getResponseEntity();
         } catch (Exception e) {
@@ -105,7 +112,7 @@ public class TransferMoneyRecordService {
     //Todo:revise method name
     void handleTransfer(Transfer_money_recordDTO transfer_money_recordDTO){
         try {
-            transferState.handle(transfer_money_recordDTO);
+            transferState.handle(transfer_money_recordDTO,this);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
