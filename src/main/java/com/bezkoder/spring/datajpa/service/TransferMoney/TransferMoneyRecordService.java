@@ -1,4 +1,4 @@
-package com.bezkoder.spring.datajpa.service;
+package com.bezkoder.spring.datajpa.service.TransferMoney;
 
 import com.bezkoder.spring.datajpa.dto.Transfer_money_recordDTO;
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
@@ -17,12 +17,16 @@ import java.util.Optional;
 
 
 @Service
+
 public class TransferMoneyRecordService {
 
     @Autowired
     private TransferMoneyRecordRepository transferMoneyRecordRepository;
     @Autowired
     private UserRepository userRepository;
+
+    private TransferState transferState = new CheckTransferCashState(this);
+
     public ResponseEntity<Transfer_money_record> getTransfer_money_recordById(long id) {
         Optional<Transfer_money_record> garbage_recordData = transferMoneyRecordRepository.findById(id);
         if ( garbage_recordData.isPresent()) {
@@ -31,12 +35,10 @@ public class TransferMoneyRecordService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    public ResponseEntity<Transfer_money_record> createTransfer_money_record(Transfer_money_recordDTO transfer_money_recordDTO) {
+    public ResponseEntity createTransfer_money_record(Transfer_money_recordDTO transfer_money_recordDTO) {
         try {
-            User user =userRepository.findById(transfer_money_recordDTO.getReceiver()).get();
-            Transfer_money_record _garbage_record = transferMoneyRecordRepository
-                    .save(new Transfer_money_record(user,transfer_money_recordDTO.getAmount(),transfer_money_recordDTO.getBank_name()));
-            return new ResponseEntity<>(_garbage_record, HttpStatus.CREATED);
+            handleTransfer(transfer_money_recordDTO);
+            return transferState.getResponseEntity();
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -74,9 +76,11 @@ public class TransferMoneyRecordService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+
     //Utils Layer
     public List<Transfer_money_record> findAll() {
-
 
         List<Transfer_money_record> garbage_types = new ArrayList<Transfer_money_record>();
         transferMoneyRecordRepository.findAll().forEach(e -> garbage_types.add(e));
@@ -94,7 +98,22 @@ public class TransferMoneyRecordService {
         transferMoneyRecordRepository.deleteById(userId);
     }
 
-//    public void saveRecord(User user, BigDecimal amount){
+    public void setTransferState(TransferState transferState) {
+        this.transferState = transferState;
+    }
+
+    //Todo:revise method name
+    void handleTransfer(Transfer_money_recordDTO transfer_money_recordDTO){
+        try {
+            transferState.handle(transfer_money_recordDTO);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    //    public void saveRecord(User user, BigDecimal amount){
 //        String accountCode = user.getBank_acct().getAccount_code();
 //        transferMoneyRecordRepository.save(new Transfer_money_record(user,amount,accountCode));
 //    }
