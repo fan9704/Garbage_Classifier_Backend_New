@@ -2,6 +2,7 @@ package com.bezkoder.spring.datajpa.controller;
 
 import com.bezkoder.spring.datajpa.dto.MachineDTO;
 import com.bezkoder.spring.datajpa.dto.MachineResponseDTO;
+import com.bezkoder.spring.datajpa.dto.PictureResponseDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.GarbageTypeRepository;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
@@ -36,7 +37,7 @@ public class MachineController {
     }
 
     @GetMapping("/machine/picture/location")
-    public ResponseEntity<Blob> findPictureByMachineLocation(String location){
+    public ResponseEntity<PictureResponseDTO> findPictureByMachineLocation(String location){
         try {
             return new ResponseEntity<>(machineService.findPictureByMachineLocation(location), HttpStatus.OK);
         } catch (Exception e) {
