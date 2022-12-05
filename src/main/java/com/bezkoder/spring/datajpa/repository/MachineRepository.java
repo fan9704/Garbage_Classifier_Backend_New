@@ -11,5 +11,6 @@ import java.util.List;
 public interface MachineRepository extends JpaRepository<Machine, Long> {
 
     List<Machine> findAllMachineByLocation(String location);
-    Blob findMachinePictureByLocation(String location);
+    Machine findOneMachineByLocation(String location);
+//    List<Blob> findAllMachinePictureByLocation(String location);
 }

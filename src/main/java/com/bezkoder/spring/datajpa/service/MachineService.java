@@ -4,6 +4,7 @@ package com.bezkoder.spring.datajpa.service;
 import com.bezkoder.spring.datajpa.dto.MachineDTO;
 import com.bezkoder.spring.datajpa.dto.MachineResponseDTO;
 import com.bezkoder.spring.datajpa.dto.Machine_storageDTO;
+import com.bezkoder.spring.datajpa.dto.PictureResponseDTO;
 import com.bezkoder.spring.datajpa.model.*;
 import com.bezkoder.spring.datajpa.repository.MachineRepository;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -63,8 +64,16 @@ public class MachineService {
         return machineList;
     }
 
-    public Blob findPictureByMachineLocation(String location){
-        return machineRepository.findMachinePictureByLocation(location);
+    public PictureResponseDTO findPictureByMachineLocation(String location) throws SQLException {
+        Blob blob= machineRepository.findOneMachineByLocation(location).getMachinePicture();
+        PictureResponseDTO pictureResponseDTO = null;
+        if (blob != null) {
+            byte[] valueArr = null;
+            valueArr = blob.getBytes(1L, (int) blob.length());
+            String encodedText = encoder.encodeToString(valueArr);
+            pictureResponseDTO= new PictureResponseDTO(encodedText);
+        }
+        return pictureResponseDTO;
     }
     public MachineResponseDTO createMachine(MachineDTO machineDTO) throws SQLException {
         _machine = new Machine();
