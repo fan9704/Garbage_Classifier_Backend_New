@@ -63,6 +63,9 @@ public class MachineService {
         return machineList;
     }
 
+    public Blob findPictureByMachineLocation(String location){
+        return machineRepository.findMachinePictureByLocation(location);
+    }
     public MachineResponseDTO createMachine(MachineDTO machineDTO) throws SQLException {
         _machine = new Machine();
         _machine.setMachinePicture(machineDTO.getMachinePicture());
