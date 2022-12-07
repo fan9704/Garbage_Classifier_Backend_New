@@ -3,7 +3,7 @@ package com.bezkoder.spring.datajpa.controller;
 import com.bezkoder.spring.datajpa.dto.Transfer_money_recordDTO;
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
 import com.bezkoder.spring.datajpa.model.User;
-import com.bezkoder.spring.datajpa.service.TransferMoneyRecordService;
+import com.bezkoder.spring.datajpa.service.TransferMoney.TransferMoneyRecordService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
