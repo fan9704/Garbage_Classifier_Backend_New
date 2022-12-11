@@ -16,13 +16,15 @@ public class CheckUserExistState extends TransferState {
     UserRepository userRepository;
 
     @Autowired
-    CheckTransferCashState checkTransferCashState;
+    CheckAmountFormatState checkAmountFormatState;
+
 
 
     @Override
     void handle(Transfer_money_recordDTO transfer_money_recordDTO,TransferMoneyRecordService transferMoneyRecordService) {
+
         if (userRepository.existsById(transfer_money_recordDTO.getReceiver())){
-            transferMoneyRecordService.setTransferState(checkTransferCashState);
+            transferMoneyRecordService.setTransferState(checkAmountFormatState);
             transferMoneyRecordService.handleTransfer(transfer_money_recordDTO);
         }
     }

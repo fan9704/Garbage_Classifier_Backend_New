@@ -32,6 +32,7 @@ public class TransferingMoneyState extends TransferState {
 
     @Override
     void handle(Transfer_money_recordDTO transfer_money_recordDTO, TransferMoneyRecordService transferMoneyRecordService) {
+
         try {
             User user = userRepository.findById(transfer_money_recordDTO.getReceiver()).get();
 
