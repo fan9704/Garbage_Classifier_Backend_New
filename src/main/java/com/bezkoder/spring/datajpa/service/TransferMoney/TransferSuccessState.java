@@ -2,10 +2,8 @@ package com.bezkoder.spring.datajpa.service.TransferMoney;
 
 import com.bezkoder.spring.datajpa.dto.Transfer_money_recordDTO;
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.NotSupportedException;
 
@@ -19,7 +17,7 @@ public class TransferSuccessState extends TransferState{
     }
 
     @Override
-    void handle(Transfer_money_recordDTO transfer_money_recordDTO,TransferMoneyRecordService transferMoneyRecordService) throws NotSupportedException {
+    void handle(Transfer_money_recordDTO transfer_money_recordDTO) throws NotSupportedException {
         throw  new NotSupportedException("Transfer Finished");
     }
 

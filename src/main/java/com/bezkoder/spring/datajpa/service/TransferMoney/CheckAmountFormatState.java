@@ -16,8 +16,10 @@ public class CheckAmountFormatState extends TransferState  {
     @Autowired
     CheckTransferCashState checkTransferCashState;
     @Override
-    void handle(Transfer_money_recordDTO transfer_money_recordDTO, TransferMoneyRecordService transferMoneyRecordService) throws NotSupportedException {
+    void handle(Transfer_money_recordDTO transfer_money_recordDTO) throws NotSupportedException {
         if (transfer_money_recordDTO.getAmount().intValue() > 0){
+            checkTransferCashState.setTransferMoneyRecordService(transferMoneyRecordService);
+
             transferMoneyRecordService.setTransferState(checkTransferCashState);
             transferMoneyRecordService.handleTransfer(transfer_money_recordDTO);
         }

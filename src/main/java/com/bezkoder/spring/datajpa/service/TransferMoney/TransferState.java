@@ -6,9 +6,12 @@ import org.springframework.http.ResponseEntity;
 
 import javax.transaction.NotSupportedException;
 
+@Setter
 public abstract class TransferState {
+
+    TransferMoneyRecordService transferMoneyRecordService;
     // Todo: revise method name
-    abstract void handle(Transfer_money_recordDTO transfer_money_recordDTO,TransferMoneyRecordService transferMoneyRecordService) throws NotSupportedException;
+    abstract void handle(Transfer_money_recordDTO transfer_money_recordDTO) throws NotSupportedException;
     abstract ResponseEntity getResponseEntity();
 
 

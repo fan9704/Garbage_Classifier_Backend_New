@@ -3,7 +3,6 @@ package com.bezkoder.spring.datajpa.service.TransferMoney;
 import com.bezkoder.spring.datajpa.dto.Transfer_money_recordDTO;
 import com.bezkoder.spring.datajpa.model.Transfer_money_record;
 import com.bezkoder.spring.datajpa.model.User;
-import com.bezkoder.spring.datajpa.model.Wallet;
 import com.bezkoder.spring.datajpa.repository.TransferMoneyRecordRepository;
 import com.bezkoder.spring.datajpa.repository.UserRepository;
 import com.bezkoder.spring.datajpa.repository.WalletRepository;
@@ -31,7 +30,7 @@ public class TransferingMoneyState extends TransferState {
 
 
     @Override
-    void handle(Transfer_money_recordDTO transfer_money_recordDTO, TransferMoneyRecordService transferMoneyRecordService) {
+    void handle(Transfer_money_recordDTO transfer_money_recordDTO) {
 
         try {
             User user = userRepository.findById(transfer_money_recordDTO.getReceiver()).get();

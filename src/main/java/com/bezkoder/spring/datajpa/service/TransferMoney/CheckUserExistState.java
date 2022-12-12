@@ -21,9 +21,11 @@ public class CheckUserExistState extends TransferState {
 
 
     @Override
-    void handle(Transfer_money_recordDTO transfer_money_recordDTO,TransferMoneyRecordService transferMoneyRecordService) {
+    void handle(Transfer_money_recordDTO transfer_money_recordDTO) {
 
         if (userRepository.existsById(transfer_money_recordDTO.getReceiver())){
+            checkAmountFormatState.setTransferMoneyRecordService(transferMoneyRecordService);
+
             transferMoneyRecordService.setTransferState(checkAmountFormatState);
             transferMoneyRecordService.handleTransfer(transfer_money_recordDTO);
         }

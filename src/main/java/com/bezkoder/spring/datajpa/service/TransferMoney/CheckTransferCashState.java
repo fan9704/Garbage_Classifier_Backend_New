@@ -22,10 +22,12 @@ public class CheckTransferCashState extends TransferState {
 
 
     @Override
-    public void handle(Transfer_money_recordDTO transfer_money_recordDTO,TransferMoneyRecordService transferMoneyRecordService) {
+    public void handle(Transfer_money_recordDTO transfer_money_recordDTO) {
 
         BigDecimal currentCash = walletRepository.getCurrentCash((int) transfer_money_recordDTO.getReceiver());
         if (currentCash.compareTo(transfer_money_recordDTO.getAmount()) >= 0) {
+            transferingMoneyState.setTransferMoneyRecordService(transferMoneyRecordService);
+
             transferMoneyRecordService.setTransferState(transferingMoneyState);
             transferMoneyRecordService.handleTransfer(transfer_money_recordDTO);
 
