@@ -17,7 +17,6 @@ import java.util.Optional;
 
 
 @Service
-
 public class TransferMoneyRecordService {
 
     @Autowired
@@ -25,7 +24,11 @@ public class TransferMoneyRecordService {
     @Autowired
     private UserRepository userRepository;
 
-    private TransferState transferState = new CheckTransferCashState(this);
+    private TransferState transferState ;
+
+    @Autowired
+    private CheckUserExistState checkUserExistState;
+
 
     public ResponseEntity<Transfer_money_record> getTransfer_money_recordById(long id) {
         Optional<Transfer_money_record> garbage_recordData = transferMoneyRecordRepository.findById(id);
@@ -37,6 +40,9 @@ public class TransferMoneyRecordService {
     }
     public ResponseEntity createTransfer_money_record(Transfer_money_recordDTO transfer_money_recordDTO) {
         try {
+            checkUserExistState.setTransferMoneyRecordService(this);
+            transferState = checkUserExistState;
+
             handleTransfer(transfer_money_recordDTO);
             return transferState.getResponseEntity();
         } catch (Exception e) {
