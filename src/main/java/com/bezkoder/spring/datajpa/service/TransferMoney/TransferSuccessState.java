@@ -7,12 +7,12 @@ import org.springframework.http.ResponseEntity;
 
 import javax.transaction.NotSupportedException;
 
+
 public class TransferSuccessState extends TransferState{
 
     Transfer_money_record transfer_money_record;
 
-    TransferSuccessState(TransferMoneyRecordService transferMoneyRecordService, Transfer_money_record transfer_money_record) {
-        super(transferMoneyRecordService);
+    TransferSuccessState(Transfer_money_record transfer_money_record) {
         this.transfer_money_record = transfer_money_record;
     }
 
