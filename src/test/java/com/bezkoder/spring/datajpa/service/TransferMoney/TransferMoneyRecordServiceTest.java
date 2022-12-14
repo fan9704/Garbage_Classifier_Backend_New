@@ -50,12 +50,13 @@ class TransferMoneyRecordServiceTest {
 
     @Test
     void TransferMoneyCauseEffectNegativeValidReceiver() throws JsonProcessingException {
-        Transfer_money_recordDTO transfer_money_recordDTO = new Transfer_money_recordDTO(1,new BigDecimal(-100),"華南銀行");
-        Mockito.when(transferMoneyRecordRepository.findById(1L)).thenReturn(Optional.of(null));
+        Transfer_money_recordDTO transfer_money_recordDTO = new Transfer_money_recordDTO(1,new BigDecimal(-100)
+                ,"華南銀行");
+        Mockito.when(transferMoneyRecordRepository.findById(1L)).thenReturn(Optional.of(t1));
         Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(u1));
-        Mockito.when(transferMoneyRecordRepository.save(any(Transfer_money_record.class))).thenReturn(null);
 
-        ResponseEntity<Transfer_money_record> ResTransferMoneyRecord = transferMoneyRecordService.patchTransfer_money_record(1L,transfer_money_recordDTO);
+        ResponseEntity<Transfer_money_record> ResTransferMoneyRecord = transferMoneyRecordService.patchTransfer_money_record(
+                1L,transfer_money_recordDTO);
 
         assertThat(ResTransferMoneyRecord.getStatusCodeValue()).isEqualTo(404);
 
@@ -65,11 +66,9 @@ class TransferMoneyRecordServiceTest {
     @Test
     void TransferMoneyCauseEffectNegativeInvalidReceiver() {
         Transfer_money_recordDTO transfer_money_recordDTO = new Transfer_money_recordDTO(-1,new BigDecimal(-100),"華南銀行");
-        Mockito.when(transferMoneyRecordRepository.findById(-1L)).thenReturn(Optional.of(null));
-        Mockito.when(userRepository.findById(-1L)).thenReturn(Optional.of(null));
-        Mockito.when(transferMoneyRecordRepository.save(any(Transfer_money_record.class))).thenReturn(t1);
 
-        ResponseEntity<Transfer_money_record> ResTransferMoneyRecord = transferMoneyRecordService.patchTransfer_money_record(-1L,transfer_money_recordDTO);
+        ResponseEntity<Transfer_money_record> ResTransferMoneyRecord = transferMoneyRecordService.patchTransfer_money_record(-1L
+                ,transfer_money_recordDTO);
 
         assertThat(ResTransferMoneyRecord.getStatusCodeValue()).isEqualTo(404);
 
@@ -77,12 +76,11 @@ class TransferMoneyRecordServiceTest {
     }
     @Test
     void TransferMoneyCauseEffectPositiveInvalidReceiver() {
-        Transfer_money_recordDTO transfer_money_recordDTO = new Transfer_money_recordDTO(-1,new BigDecimal(100),"華南銀行");
-        Mockito.when(transferMoneyRecordRepository.findById(-1L)).thenReturn(Optional.of(null));
-        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(u1));
-        Mockito.when(transferMoneyRecordRepository.save(any(Transfer_money_record.class))).thenReturn(t1);
+        Transfer_money_recordDTO transfer_money_recordDTO = new Transfer_money_recordDTO(-1,new BigDecimal(100)
+                ,"華南銀行");
 
-        ResponseEntity<Transfer_money_record> ResTransferMoneyRecord = transferMoneyRecordService.patchTransfer_money_record(-1L,transfer_money_recordDTO);
+        ResponseEntity<Transfer_money_record> ResTransferMoneyRecord = transferMoneyRecordService.patchTransfer_money_record(
+                -1L,transfer_money_recordDTO);
 
         assertThat(ResTransferMoneyRecord.getStatusCodeValue()).isEqualTo(404);
 

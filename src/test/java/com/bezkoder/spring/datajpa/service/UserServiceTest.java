@@ -24,9 +24,6 @@ class UserServiceTest {
     private UserRepository userRepository;
     User u0 =new User(0,"user0","user0@gmail.com","user0","user0","user0",false,"000", new HashSet<>(),null);
     User u1 =new User(1,"user1","user1@gmail.com","user1","user1","user1",false,"000", new HashSet<>(),null);
-    User u2 =new User(2,"user2","user2@mail.com","user2","user2","user2",false,"001", new HashSet<>(),null);
-    User u3 =new User(3,"user3","user3@mail.com","user3","user3","user3",false,"002", new HashSet<>(),null);
-    User u4 =new User(4,"user4","user4@mail.com","user4","user4","user4",false,"003", new HashSet<>(),null);
     User umax =new User(Long.MAX_VALUE,"user9223372036854775807","user9223372036854775807@mail.com","user9223372036854775807","user9223372036854775807","user9223372036854775807",false,"009223372036854775807", new HashSet<>(),null);
     User umaxMinus1 =new User(Long.MAX_VALUE-1,"user9223372036854775807","user9223372036854775807@mail.com","user9223372036854775807","user9223372036854775807","user9223372036854775807",false,"009223372036854775807", new HashSet<>(),null);
     //    Equivalence Partitioning
@@ -49,7 +46,6 @@ class UserServiceTest {
     }
     @Test
     void getUserByIdWithOverFlow() {
-        Mockito.when(userRepository.findById(Long.MAX_VALUE+1)).thenReturn(Optional.of(umax));
         ResponseEntity responseEntity =userService.getUserById(Long.MAX_VALUE+1);
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);

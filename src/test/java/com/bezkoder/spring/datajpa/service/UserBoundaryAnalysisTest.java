@@ -65,7 +65,6 @@ public class UserBoundaryAnalysisTest {
     }
     @Test
     void getUserByIdWithLeftBoundaryMinusOne() {
-        Mockito.when(userRepository.findById(-1L)).thenReturn(null);
         ResponseEntity responseEntity =userService.getUserById(-1);
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
@@ -76,7 +75,6 @@ public class UserBoundaryAnalysisTest {
 
     @Test
     void getUserByIdWithRightBoundaryPlusOne() {
-        Mockito.when(userRepository.findById(Long.MAX_VALUE+1)).thenReturn(null);
         ResponseEntity responseEntity =userService.getUserById(Long.MAX_VALUE+1);
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
