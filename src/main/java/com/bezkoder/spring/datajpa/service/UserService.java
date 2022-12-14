@@ -61,16 +61,21 @@ public class UserService {
         }
     }
     public ResponseEntity<User> getUserById( long id) {
-        Optional<User> userData = userRepository.findById(id);
-
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
-        } else {
+        if(id<0){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else if(id>Long.MAX_VALUE || id == Long.MIN_VALUE){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else{
+            Optional<User> userData = userRepository.findById(id);
+            if (userData.isPresent()) {
+                return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
     }
 
-    public ResponseEntity<User> getUserById( String username) {
+    public ResponseEntity<User> getUserByUsername( String username) {
         User userData = userRepository.findByUserName(username);
 
         if (userData!=null) {
