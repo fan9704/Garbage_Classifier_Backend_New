@@ -72,7 +72,7 @@ class TransferMoneyRecordServiceTest {
 
         assertThat(ResTransferMoneyRecord.getStatusCodeValue()).isEqualTo(404);
 
-        System.out.println("Test Cause-Effect Negative Valid Receiver Pass");
+        System.out.println("Test Cause-Effect Negative Invalid Receiver Pass");
     }
     @Test
     void TransferMoneyCauseEffectPositiveInvalidReceiver() {
@@ -84,7 +84,7 @@ class TransferMoneyRecordServiceTest {
 
         assertThat(ResTransferMoneyRecord.getStatusCodeValue()).isEqualTo(404);
 
-        System.out.println("Test Cause-Effect Negative Valid Receiver Pass");
+        System.out.println("Test Cause-Effect Positive Invalid Receiver Pass");
     }
 
     private String convertToJson(Object obj) throws JsonProcessingException {
