@@ -1,19 +1,19 @@
+<span style="text-align: center">
+
 # Garbage Classifier Backend
-### Yuntech Information management department System Analysis and Design G6 Teamwork
+
+![](https://img.shields.io/github/languages/top/fan9704/Garbage_Classifier_Backend_New?logo=openjdk&logoColor=%23FFFFFF&style=for-the-badge)
+![](https://img.shields.io/github/languages/count/fan9704/Garbage_Classifier_Backend_New?color=%23005A2B&style=for-the-badge)
+
+</span>
 
 ----
 
-[Web Interface Page SwaggerUI](http://localhost:8080/swagger-ui/index.html)
+### Swagger Document Link
+
+[Local Web Interface Page SwaggerUI](http://localhost:8080/swagger-ui/index.html)
 
 [Remote Web Interface Page SwaggerUI](http://140.125.207.230:8080/swagger-ui/index.html)
-
-----
-
-##### Future Feature
-
-Distribute System Use Messaging Queue
-
-[RabbitMQ Messaging Manage Panel](http://140.125.207.230:15672/)
 
 ----
 
@@ -25,16 +25,16 @@ Distribute System Use Messaging Queue
 
 [Frontend Project](https://github.com/fan9704/Garbage_Classifier_Frontend)
 
-[Backend Project](https://github.com/fan9704/Garbage_Classifier_Backend)
+[Backend Project](https://github.com/fan9704/Garbage_Classifier_Backend_New)
 
 [Hardware Project](https://github.com/fan9704/Garbage_Classifier_Hardware)
 
 ----
 
-### Software Interaction
+### Software Technical Architecture
 
 
-![](https://imgdb.net/storage/uploads/164f2fed45f5fcc8494eb9cf7d0856cc2f7d8700ab468a2cdfa540cccc622763.png)
+![](./doc/BackendStructure.png)
 
 ----
 
@@ -42,39 +42,29 @@ Distribute System Use Messaging Queue
 
 ----
 
-![](https://imgdb.net/storage/uploads/ae3a9af130234554cd6a0b53b1fd118ec4e5a6bea284110905d53620c01132e0.png)
+### Feature
 
-#### Spring Boot JPA MySQL - Building Rest CRUD API
+#### Account Management
 
-For more detail, please visit:
-> [Spring Boot JPA + MySQL - Building Rest CRUD API example](https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/)
+> Through frontend or application to register their account and auto generate their virtual wallet
 
-More Practice:
-> [Spring Boot File upload example with Multipart File](https://www.bezkoder.com/spring-boot-file-upload/)
+#### Transfer Money
 
-> [Spring Boot Pagination & Filter example | Spring JPA, Pageable](https://www.bezkoder.com/spring-boot-pagination-filter-jpa-pageable/)
+> Through application transfer their recycle balance from virtual wallet to bank account
 
-> [Spring Data JPA Sort/Order by multiple Columns | Spring Boot](https://www.bezkoder.com/spring-data-sort-multiple-columns/)
+#### Auto Sorting Recycling
 
-> [Spring Boot Repository Unit Test with @DataJpaTest](https://www.bezkoder.com/spring-boot-unit-test-jpa-repo-datajpatest/)
+> Put the recycling on the machine through YOLOv7 recognize the recycling type
+> Then according the recycling unit price and weight feedback money to user
+> Notify related recycling company clean up the recycling can
 
-Associations:
-> [Spring Boot One To Many example with Spring JPA, Hibernate](https://www.bezkoder.com/jpa-one-to-many/)
+#### Realtime Monitor Recycling Can Storage
 
-> [Spring Boot Many To Many example with Spring JPA, Hibernate](https://www.bezkoder.com/jpa-many-to-many/)
+> User and Manager can through frontend and application realtime monitor any recycling machine status
 
-Security:
-> [Spring Boot + Spring Security JWT Authentication & Authorization](https://www.bezkoder.com/spring-boot-jwt-authentication/)
+#### Active Notification 
 
-Deployment:
-> [Deploy Spring Boot App on AWS – Elastic Beanstalk](https://bezkoder.com/deploy-spring-boot-aws-eb/)
-
-> [Docker Compose Spring Boot and MySQL example](https://www.bezkoder.com/docker-compose-spring-boot-mysql/)
-
-Fullstack:
-> [Vue.js + Spring Boot + MySQL example](https://bezkoder.com/spring-boot-vue-js-mysql/)
-
-> [Vue.js + Spring Boot + PostgreSQL example](https://bezkoder.com/spring-boot-vue-js-postgresql/)
+> When the recycling can approximately full system will activate notify to manager
 
 ----
 
