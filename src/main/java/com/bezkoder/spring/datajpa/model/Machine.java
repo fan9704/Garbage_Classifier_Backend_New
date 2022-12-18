@@ -33,9 +33,9 @@ public class Machine {
     @Column(name = "location")
     private String location;
     @Column(name= "user_lock",columnDefinition = "boolean default false")
-    private boolean user_lock;
+    private Boolean user_lock;
     @Column(name= "machine_lock",columnDefinition = "boolean default false")
-    private boolean machine_lock;
+    private Boolean machine_lock;
     @Lob
     @Column(name = "machine_picture")
     private Blob machinePicture;
@@ -76,5 +76,10 @@ public class Machine {
         machineStorages.add(machineStorage);
     }
 
-
+    public Boolean isUser_lock(){
+        return this.user_lock;
+    }
+    public Boolean isMachine_lock(){
+        return this.machine_lock;
+    }
 }
