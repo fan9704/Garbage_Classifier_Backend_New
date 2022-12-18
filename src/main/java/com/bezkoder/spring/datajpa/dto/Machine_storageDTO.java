@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Machine_storageDTO {
     private  long machine_id;
     private  long garbage_type;
