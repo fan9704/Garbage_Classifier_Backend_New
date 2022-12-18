@@ -43,7 +43,7 @@ public class UserBoundaryAnalysisTest {
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
         assertThat(responseEntity.getBody()).isEqualTo(u1);
-        System.out.println("Left Boundary Analysis Pass");
+        System.out.println("Left Boundary Analysis Plus One Pass");
     }
     @Test
     void getUserByIdWithRightBoundaryMinusOne() {
