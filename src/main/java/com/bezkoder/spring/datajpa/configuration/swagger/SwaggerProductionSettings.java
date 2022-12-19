@@ -8,13 +8,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerProductionSettings extends SwaggerSettings {
     @Override
     public Docket settingSwaggerRules() {
-        new Docket(
+        return new Docket(
                 DocumentationType.OAS_30)
                 .enable(false)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
-        return null;
     }
 }

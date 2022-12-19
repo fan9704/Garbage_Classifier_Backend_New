@@ -15,10 +15,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableOpenApi
 @Configuration
 public class SwaggerConfiguration {
-
     @Value("${springfox.documentation.swagger-ui.enabled}")
     private boolean enabled;
-
     @Bean
     public Docket createRestApi() {
         SwaggerSettings swaggerSettings;
@@ -29,7 +27,6 @@ public class SwaggerConfiguration {
         }
         return swaggerSettings.settingSwaggerRules();
     }
-
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Garbage Classifier Backend")
@@ -40,5 +37,4 @@ public class SwaggerConfiguration {
                 .contact(new Contact("FKT", "https://github.com/fan9704", "cxz123499@gmail.com"))
                 .build();
     }
-
 }
