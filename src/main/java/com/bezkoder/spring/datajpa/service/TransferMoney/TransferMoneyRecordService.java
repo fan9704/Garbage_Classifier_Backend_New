@@ -51,22 +51,28 @@ public class TransferMoneyRecordService {
     }
     public ResponseEntity<Transfer_money_record> patchTransfer_money_record(long id,Transfer_money_recordDTO transfer_money_recordDTO) {
         Optional<Transfer_money_record> transfer_money_recordData = transferMoneyRecordRepository.findById(id);
-        User user =userRepository.findById(transfer_money_recordDTO.getReceiver()).get();
+        Optional<User> userOptional =userRepository.findById(transfer_money_recordDTO.getReceiver());
+        if (!userOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         if (transfer_money_recordData.isPresent()) {
             Transfer_money_record _transfer_money_record = transfer_money_recordData.get();
-            if(transfer_money_recordDTO.getReceiver()!=transfer_money_recordData.get().getReceiver().getId()){
-                _transfer_money_record.setReceiver(user);
-            }
-            if(transfer_money_recordDTO.getAmount().compareTo(BigDecimal.ZERO) != 0  ){
+            _transfer_money_record.setReceiver(userOptional.get());
+            if(transfer_money_recordDTO.getAmount().compareTo(BigDecimal.ZERO) >= 0  ){
                 _transfer_money_record.setAmount(transfer_money_recordDTO.getAmount());
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             if(transfer_money_recordDTO.getBank_name()!=""){
                 _transfer_money_record.setBank_name(transfer_money_recordDTO.getBank_name());
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(transferMoneyRecordRepository.save(_transfer_money_record), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
     }
     public ResponseEntity<Transfer_money_record> updateTransfer_money_record(long id,Transfer_money_recordDTO transfer_money_recordDTO) {
         Optional<Transfer_money_record> transfer_money_recordData = transferMoneyRecordRepository.findById(id);
